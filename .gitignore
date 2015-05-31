@@ -22,3 +22,7 @@ logs/
 tmp/
 *.tmp
 
+# Vagrant
+.vagrant
+*.box
+
