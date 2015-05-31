@@ -2,6 +2,7 @@ vagrant-files
 =============================
 https://docs.vagrantup.com/v2/getting-started
 
+- vagrant plugin install vagrant-vbguest
 - vagrant box add puppetlabs/centos-7.0-64-puppet
 - vagrant up
 - vagrant package --output base_java_vagrant.box
