@@ -4,15 +4,13 @@
 set -x
 set -e
 
+# Paths
+RH_HOME=/opt/rh
+FUSE_HOME=/opt/rh/jboss-fuse-61
+
 # Open firewall for hawtio
 sudo firewall-cmd --zone=public --add-port=8181/tcp --permanent
 sudo firewall-cmd --reload
-
-# Give write-access to bootstrap
-sudo chmod +x /home/vagrant/bootstrap-fuse.sh
-
-RH_HOME=/opt/rh
-FUSE_HOME=/opt/rh/jboss-fuse-61
 
 # ulimits values needed by the processes inside the container
 ulimit -u 4096
@@ -32,4 +30,6 @@ sudo chown -R vagrant:vagrant /opt/rh/
 # Set debug mode off
 set +x
 
-sh fuse-wait-for-service.sh
+# Give write-access to bootstrap
+sudo chmod +x /home/vagrant/fuse-wait-for-service.sh
+sh /home/vagrant/fuse-wait-for-service.sh
