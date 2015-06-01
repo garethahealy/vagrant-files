@@ -1,0 +1,23 @@
+#
+# Run this script via the below:
+# shell:source /home/vagrant/scaffold-fuse-fabric.karaf
+#
+
+# Create a new fabric
+fabric:create --clean --wait-for-provisioning --global-resolver localip --resolver localip --verbose
+
+# Configure local maven
+fabric:profile-edit --append --pid io.fabric8.agent/org.ops4j.pax.url.mvn.repositories=\"file:/vagrant/m2/repository@snapshots@id=maven-snapshots\" default
+
+# Add in the zookeeper commands to fabric, helps if we have issues in the future
+fabric:profile-edit --features fabric-zookeeper-commands fabric
+
+# Create a new fabric version for the pacthes
+fabric:version-create 1.1
+fabric:patch-apply --username admin --password admin --version 1.1 file:///opt/rh/jboss-fuse-61/patch-zips/rollup2.zip
+fabric:patch-apply --username admin --password admin --version 1.1 file:///opt/rh/jboss-fuse-61/patch-zips/rollup2-p4.zip
+
+# Upgrade the container so the patches take effect
+fabric:container-upgrade 1.1 root
+fabric:version-set-default 1.1
+

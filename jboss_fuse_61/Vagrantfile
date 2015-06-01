@@ -29,8 +29,9 @@ Vagrant.configure(2) do |config|
   config.vm.network "forwarded_port", guest: 8181, host: 8181, protocol: 'udp'
 
   # Add the Fuse files
-  config.vm.provision "file", source: "/Users/garethah/Documents/redhat/jboss-fuse/patches/jboss-fuse-61.tbz2", destination: "/tmp/jboss-fuse-61.tbz2"
+  config.vm.provision "file", source: "/Users/garethah/Documents/redhat/jboss-fuse/patches/jboss-fuse-61-433.tbz2", destination: "/tmp/jboss-fuse-61.tbz2"
   config.vm.provision "file", source: "bootstrap-fuse.sh", destination: "/home/vagrant/bootstrap-fuse.sh"
+  config.vm.provision "file", source: "scaffold-fuse-fabric.karaf", destination: "/home/vagrant/scaffold-fuse-fabric.karaf"
 
   # Enable provisioning with a shell script. Additional provisioners such as
   # Puppet, Chef, Ansible, Salt, and Docker are also available. Please see the

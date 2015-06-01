@@ -31,3 +31,5 @@ sudo chown -R vagrant:vagrant /opt/rh/
 
 # Set debug mode off
 set +x
+
+sh fuse-wait-for-service.sh
