@@ -13,25 +13,29 @@ Vagrant.configure(2) do |config|
   # Every Vagrant development environment requires a box. You can search for
   # boxes at https://atlas.hashicorp.com/search.
   config.vm.box = "base_java_vagrant"
+  config.vm.hostname = "jbossfuse61.vagrant.local"
 
   # Name the vagrant image
   config.vm.define :jbossfuse61 do |t|
   end
 
-  # Create a forwarded port mapping which allows access to a specific port
-  # within the machine from a port on the host machine. In the example below,
-  # accessing "localhost:8080" will access port 80 on the guest machine.
-  config.vm.network "forwarded_port", guest: 8181, host: 8181
-
   # Create a private network, which allows host-only access to the machine
-  # using a specific IP.
-  config.vm.network "private_network", ip: "192.168.16.2"
+  config.vm.network :private_network, ip: "192.168.32.2"
+  config.vm.network "public_network", ip: "192.168.64.2"
 
-  # Add the Fuse zip
+  # Create a forwarded port mapping which allows access to a specific port
+  # within the machine from a port on the host machine.
+  config.vm.network "forwarded_port", guest: 8181, host: 8181, protocol: 'tcp'
+  config.vm.network "forwarded_port", guest: 8181, host: 8181, protocol: 'udp'
+
+  # Add the Fuse files
   config.vm.provision "file", source: "/Users/garethah/Documents/redhat/jboss-fuse/patches/jboss-fuse-61.tbz2", destination: "/tmp/jboss-fuse-61.tbz2"
+  config.vm.provision "file", source: "bootstrap-fuse.sh", destination: "/home/vagrant/bootstrap-fuse.sh"
 
   # Enable provisioning with a shell script. Additional provisioners such as
   # Puppet, Chef, Ansible, Salt, and Docker are also available. Please see the
   # documentation for more information about their specific syntax and use.
-  config.vm.provision :shell, path: "bootstrap.sh"
+  config.vm.provision :shell, path: "bootstrap.sh", privileged: false
+
+  config.vm.post_up_message = "http://jbossfuse61.vagrant.local:8181/hawtio"
 end
