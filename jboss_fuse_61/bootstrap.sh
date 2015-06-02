@@ -27,9 +27,9 @@ sudo chown -R vagrant:vagrant /opt/rh/
 # Start fuse on root node
 "$FUSE_HOME/bin/start"
 
-# Set debug mode off
-set +x
-
 # Give write-access to bootstrap
 sudo chmod +x /home/vagrant/fuse-wait-for-service.sh
 sh /home/vagrant/fuse-wait-for-service.sh
+
+# Set debug mode off
+set +x

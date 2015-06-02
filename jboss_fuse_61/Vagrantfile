@@ -28,6 +28,13 @@ Vagrant.configure(2) do |config|
   config.vm.network "forwarded_port", guest: 8181, host: 8181, protocol: 'tcp'
   config.vm.network "forwarded_port", guest: 8181, host: 8181, protocol: 'udp'
 
+  # TODO: Share .m2
+  # Share an additional folder to the guest VM. The first argument is
+  # the path on the host to the actual folder. The second argument is
+  # the path on the guest to mount the folder. And the optional third
+  # argument is a set of non-required options.
+  # config.vm.synced_folder "../data", "/vagrant_data"
+
   # Add the Fuse files
   config.vm.provision "file", source: "/Users/garethah/Documents/redhat/jboss-fuse/patches/jboss-fuse-61-433.tbz2", destination: "/tmp/jboss-fuse-61.tbz2"
   config.vm.provision "file", source: "fuse-wait-for-service.sh", destination: "/home/vagrant/fuse-wait-for-service.sh"

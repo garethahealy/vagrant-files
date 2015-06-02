@@ -2,6 +2,8 @@ jboss-fuse-61
 =============================
 Bare image to run JBoss Fuse 6.1 with patches.
 
+NOTE*** Vagrant file contains hardcoded location to Fuse .zip. This needs changing to your location.
+
 What does this image do?
 =============================
 - Installs Fuse
@@ -9,7 +11,6 @@ What does this image do?
 
 Once the VM is up, you need to run 'scaffold-fuse-fabric.karaf', this is because a SSH session is lost when running fabric:create, so kills the script
 
-- vagrant init base_java_vagrant
 - vagrant up
 - vagrant ssh
 
