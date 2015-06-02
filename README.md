@@ -7,3 +7,5 @@ Pre-reqs
 - vagrant plugin install vagrant-auto_network
 - vagrant plugin install vagrant-triggers
 - vagrant box add puppetlabs/centos-7.0-64-puppet
+
+- vagrant init base_java_vagrant
