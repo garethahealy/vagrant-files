@@ -13,3 +13,6 @@ How to...
 - vagrant up
 - vagrant ssh
 
+http://activemq.apache.org/artemis/docs/1.0.0/client-classpath.html
+http://activemq.apache.org/artemis/docs/1.0.0/examples.html
+
