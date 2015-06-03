@@ -14,5 +14,9 @@ sudo yum clean all && \
      yum install -y java-1.7.0-openjdk.x86_64 java-1.7.0-openjdk-devel.x86_64 && \
      yum install -y wget vim zip unzip sshpass nmap lokkit apache-maven git libaio
 
+# Open port for Java remote debugging
+sudo firewall-cmd --zone=public --add-port=5005/tcp --permanent
+sudo firewall-cmd --reload
+
 # Set debug mode off
 set +x
