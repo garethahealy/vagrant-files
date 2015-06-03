@@ -4,10 +4,14 @@
 #
 
 # Create a new fabric
-fabric:create --clean --wait-for-provisioning --global-resolver localip --resolver localip --verbose
+fabric:create --clean --global-resolver localip --resolver localip --profile fabric --wait-for-provisioning
+
+# Wait just incase fabric isnt complete
+echo Waiting for fabric...
+sleep 10000
 
 # Configure local maven
-fabric:profile-edit --append --pid io.fabric8.agent/org.ops4j.pax.url.mvn.repositories=\"file:/vagrant/m2/repository@snapshots@id=maven-snapshots\" default
+fabric:profile-edit --append --pid io.fabric8.agent/org.ops4j.pax.url.mvn.repositories=file:///home/vagrant/.m2/repository@snapshots@id=maven-snapshots default
 
 # Add in the zookeeper commands to fabric, helps if we have issues in the future
 fabric:profile-edit --features fabric-zookeeper-commands fabric
@@ -21,3 +25,6 @@ fabric:patch-apply --username admin --password admin --version 1.1 file:///opt/r
 fabric:container-upgrade 1.1 root
 fabric:version-set-default 1.1
 
+# Wait for the container to upgrade
+echo Waiting for patch upgrade to complete...
+sleep 10000
