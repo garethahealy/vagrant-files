@@ -1,0 +1,66 @@
+# -*- mode: ruby -*-
+# vi: set ft=ruby :
+
+Vagrant.require_version ">= 1.8.0"
+
+# Install required Vagrant plugins
+missing_plugins_installed = false
+required_plugins = %w(vagrant-vbguest vagrant-hostmanager vagrant-cachier vagrant-triggers vagrant-auto_network)
+
+required_plugins.each do |plugin|
+  if !Vagrant.has_plugin? plugin
+    system "vagrant plugin install #{plugin}"
+    missing_plugins_installed = true
+  end
+end
+
+# If any plugins were missing and have been installed, re-run vagrant
+if missing_plugins_installed
+  exec "vagrant #{ARGV.join(" ")}"
+end
+
+# All Vagrant configuration is done below. The "2" in Vagrant.configure
+# configures the configuration version (we support older styles for
+# backwards compatibility). Please don't change it unless you know what
+# you're doing.
+Vagrant.configure(2) do |config|
+  # The most common configuration options are documented and commented below.
+  # For a complete reference, please see the online documentation at
+  # https://docs.vagrantup.com.
+
+  # Every Vagrant development environment requires a box. You can search for
+  # boxes at https://atlas.hashicorp.com/search.
+  config.vm.box = "garethahealy/centos72_java8"
+  config.vm.box_version = "= 1.0.1"
+
+  # Hashicorp atlas push
+  config.push.define "atlas" do |push|
+    push.app = "garethahealy/apache_artemis110"
+  end
+
+  # Config /etc/hosts via plugin
+  config.hostmanager.enabled = true
+  config.hostmanager.manage_host = true
+  config.hostmanager.ignore_private_ip = false
+  config.hostmanager.include_offline = true
+
+  # Config VM
+  config.vm.define :apacheartemis do |machine|
+    # Assign network config
+    machine.vm.hostname = "apacheartemis.vagrant.local"
+    #machine.vm.network "private_network", ip: "192.168.34.20"
+    machine.vm.network "private_network", :auto_network => true
+
+    # Add the Apache Artemis zip and scaffolding script
+    machine.vm.provision "file", source: "~/.m2/repository/org/apache/activemq/artemis/1.1.0/artemis-1.1.0-bin.zip", destination: "/opt/rh/artemis-1.1.0-bin.zip"
+
+    # Enable provisioning with a shell script. Additional provisioners such as
+    # Puppet, Chef, Ansible, Salt, and Docker are also available. Please see the
+    # documentation for more information about their specific syntax and use.
+    machine.vm.provision :shell, path: "bootstrap.sh", privileged: false
+    machine.vm.provision :shell, path: "bootstrap-artemis.sh", privileged: false
+
+    # Complete message
+    machine.vm.post_up_message = "http://apacheartemis.vagrant.local:8161"
+  end
+end

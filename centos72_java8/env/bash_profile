@@ -5,11 +5,10 @@ if [ -f ~/.bashrc ]; then
 	. ~/.bashrc
 fi
 
-# User specific environment and startup programs
-
-JAVA_HOME=/usr/lib/jvm/java-1.7.0-openjdk
+JAVA_HOME=/usr/lib/jvm/java-1.8.0-openjdk
 export JAVA_HOME
 
+# User specific environment and startup programs
 PATH=$PATH:$HOME/.local/bin:$HOME/bin:$JAVA_HOME/bin
 
 export PATH

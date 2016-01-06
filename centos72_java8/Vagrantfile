@@ -1,6 +1,24 @@
 # -*- mode: ruby -*-
 # vi: set ft=ruby :
 
+Vagrant.require_version ">= 1.8.0"
+
+# Install required Vagrant plugins
+missing_plugins_installed = false
+required_plugins = %w(vagrant-vbguest vagrant-hostmanager vagrant-cachier vagrant-triggers vagrant-auto_network)
+
+required_plugins.each do |plugin|
+  if !Vagrant.has_plugin? plugin
+    system "vagrant plugin install #{plugin}"
+    missing_plugins_installed = true
+  end
+end
+
+# If any plugins were missing and have been installed, re-run vagrant
+if missing_plugins_installed
+  exec "vagrant #{ARGV.join(" ")}"
+end
+
 # All Vagrant configuration is done below. The "2" in Vagrant.configure
 # configures the configuration version (we support older styles for
 # backwards compatibility). Please don't change it unless you know what
@@ -12,11 +30,20 @@ Vagrant.configure(2) do |config|
 
   # Every Vagrant development environment requires a box. You can search for
   # boxes at https://atlas.hashicorp.com/search.
-  config.vm.box = "puppetlabs/centos-7.0-64-puppet"
-  config.vm.box_version = "= 1.0.1"
+  config.vm.box = "boxcutter/centos72"
+  config.vm.box_version = "= 2.0.10"
+
+  # Configure cached packages to be shared between instances of the same base box.
+  # More info on http://fgrehm.viewdocs.io/vagrant-cachier/usage
+  config.cache.scope = :box
 
   # Name the vagrant image
-  config.vm.define :base_java_vagrant do |t|
+  config.vm.define :centos72_java8 do |machine|
+  end
+
+  # Hashicorp atlas push
+  config.push.define "atlas" do |push|
+    push.app = "garethahealy/centos72_java8"
   end
 
   # Provider-specific configuration so you can fine-tune various
@@ -26,7 +53,7 @@ Vagrant.configure(2) do |config|
     # Customize the amount of memory on the VM:
     vb.memory = 2048
     vb.cpus = 2
-    vb.name = "base_java_vagrant"
+    vb.name = "centos72_java8"
   end
 
   # Add bash profile

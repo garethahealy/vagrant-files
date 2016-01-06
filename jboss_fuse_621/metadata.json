@@ -1,0 +1,10 @@
+{
+  "name": "garethahealy/jboss_fuse_621",
+  "description": "Base image to run JBoss Fuse 6.2.1.",
+  "versions": [{
+    "version": "1.0.0",
+    "providers": [{
+      "name": "virtualbox"
+    }]
+  }]
+}

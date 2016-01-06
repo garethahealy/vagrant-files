@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+
+    <modelVersion>4.0.0</modelVersion>
+    <parent>
+        <groupId>com.garethahealy</groupId>
+        <artifactId>plugins-parent</artifactId>
+        <version>1.1.0-SNAPSHOT</version>
+        <relativePath/>
+    </parent>
+    <groupId>com.garethahealy.vagrant</groupId>
+    <artifactId>vagrant-files</artifactId>
+    <packaging>pom</packaging>
+    <version>1.0.0-SNAPSHOT</version>
+    <name>GarethHealy :: Vagrant Files</name>
+
+    <scm>
+        <connection>scm:git:https://github.com/garethahealy/vagrant-files/tree/master</connection>
+        <developerConnection>scm:git:https://github.com/garethahealy/vagrant-files/tree/master</developerConnection>
+        <url>https://github.com/garethahealy/vagrant-files/tree/master</url>
+    </scm>
+
+    <modules>
+        <module>jboss_fuse_621</module>
+        <module>apache_artemis110</module>
+    </modules>
+
+</project>

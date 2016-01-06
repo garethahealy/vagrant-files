@@ -1,0 +1,106 @@
+# -*- mode: ruby -*-
+# vi: set ft=ruby :
+
+Vagrant.require_version ">= 1.8.0"
+
+# Install required Vagrant plugins
+missing_plugins_installed = false
+required_plugins = %w(vagrant-vbguest vagrant-hostmanager vagrant-cachier vagrant-triggers vagrant-auto_network)
+
+required_plugins.each do |plugin|
+  if !Vagrant.has_plugin? plugin
+    system "vagrant plugin install #{plugin}"
+    missing_plugins_installed = true
+  end
+end
+
+# If any plugins were missing and have been installed, re-run vagrant
+if missing_plugins_installed
+  exec "vagrant #{ARGV.join(" ")}"
+end
+
+require 'socket'
+def my_first_private_ipv4
+  Socket.ip_address_list.detect{|intf| intf.ipv4_private?}
+end
+
+parent_ip = my_first_private_ipv4.ip_address unless my_first_private_ipv4.nil?
+
+$setNexusIp = <<SCRIPT
+echo "export NEXUS_IP=#{parent_ip}" >> /home/vagrant/.bash_profile
+SCRIPT
+
+# All Vagrant configuration is done below. The "2" in Vagrant.configure
+# configures the configuration version (we support older styles for
+# backwards compatibility). Please don't change it unless you know what
+# you're doing.
+Vagrant.configure(2) do |config|
+  # The most common configuration options are documented and commented below.
+  # For a complete reference, please see the online documentation at
+  # https://docs.vagrantup.com.
+
+  # Every Vagrant development environment requires a box. You can search for
+  # boxes at https://atlas.hashicorp.com/search.
+  config.vm.box = "garethahealy/centos72_java8"
+  config.vm.box_version = "= 1.0.1"
+
+  # Hashicorp atlas push
+  config.push.define "atlas" do |push|
+    push.app = "garethahealy/jboss_fuse_621"
+  end
+
+  # Config /etc/hosts via plugin
+  config.hostmanager.enabled = true
+  config.hostmanager.manage_host = true
+  config.hostmanager.ignore_private_ip = false
+  config.hostmanager.include_offline = true
+
+  # Sync the maven folder
+  #config.vm.synced_folder "~/.m2", "/home/vagrant/.m2"
+
+  # Make shared folders a NFS4 mount
+  #config.cache.synced_folder_opts = {
+  #  type: :nfs,
+  #  mount_options: ['rw', 'vers=4', 'tcp', 'nolock']
+  #}
+
+  # Worker nodes (i.e.: ESB / AMQ)
+  N = 3
+  (2..N).each do |machine_id|
+    config.vm.define "machine#{machine_id}" do |machine|
+      # Assign network config
+      machine.vm.hostname = "machine#{machine_id}.jbossfuse621.vagrant.local"
+      machine.vm.network "private_network", :auto_network => true
+
+      # Enable provisioning with a shell script. Additional provisioners such as
+      # Puppet, Chef, Ansible, Salt, and Docker are also available. Please see the
+      # documentation for more information about their specific syntax and use.
+      machine.vm.provision :shell, path: "bootstrap.sh", privileged: false
+    end
+  end
+
+  # Fabric (i.e.: root controller node)
+  config.vm.define "machine1" do |machine1|
+    # Assign network config
+    machine1.vm.hostname = "machine1.jbossfuse621.vagrant.local"
+    machine1.vm.network "private_network", :auto_network => true
+
+    # Create a forwarded port mapping which allows access to a specific port
+    # within the machine from a port on the host machine.
+    machine1.vm.network "forwarded_port", guest: 8181, host: 8181, protocol: 'tcp'
+
+    # Add the JBoss Fuse zip and scripts
+    machine1.vm.provision "file", source: "~/.m2/repository/org/jboss/fuse/jboss-fuse-full/6.2.1.redhat-084/jboss-fuse-full-6.2.1.redhat-084.zip", destination: "/opt/rh/jboss-fuse-full-6.2.1.redhat-084.zip"
+    machine1.vm.provision "file", source: "~/.m2/repository/com/garethahealy/fuse-setup/scaffolding-scripts/1.0.0-SNAPSHOT/scaffolding-scripts-1.0.0-20160106.143015-11-all.zip", destination: "/tmp/scaffolding-scripts.zip"
+
+    # Enable provisioning with a shell script. Additional provisioners such as
+    # Puppet, Chef, Ansible, Salt, and Docker are also available. Please see the
+    # documentation for more information about their specific syntax and use.
+    machine1.vm.provision :shell, inline: $setNexusIp, privileged: false
+    machine1.vm.provision :shell, path: "bootstrap.sh", privileged: false
+    machine1.vm.provision :shell, path: "bootstrap-fabric.sh", privileged: false
+
+    # Complete message
+    machine1.vm.post_up_message = "http://machine1.jbossfuse621.vagrant.local:8181/"
+  end
+end
