@@ -22,7 +22,7 @@
     </scm>
 
     <modules>
-        <module>jboss_fuse_621</module>
+        <module>jboss_fuse</module>
         <module>apache_artemis110</module>
     </modules>
 

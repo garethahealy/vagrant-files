@@ -19,12 +19,14 @@ if missing_plugins_installed
   exec "vagrant #{ARGV.join(" ")}"
 end
 
+AutoNetwork.default_pool = '10.20.1.2/24'
+
 require 'socket'
-def my_first_private_ipv4
+def private_ipv4
   Socket.ip_address_list.detect{|intf| intf.ipv4_private?}
 end
 
-parent_ip = my_first_private_ipv4.ip_address unless my_first_private_ipv4.nil?
+parent_ip = private_ipv4.ip_address unless private_ipv4.nil?
 
 $setNexusIp = <<SCRIPT
 echo "export NEXUS_IP=#{parent_ip}" >> /home/vagrant/.bash_profile
@@ -55,22 +57,13 @@ Vagrant.configure(2) do |config|
   config.hostmanager.ignore_private_ip = false
   config.hostmanager.include_offline = true
 
-  # Sync the maven folder
-  #config.vm.synced_folder "~/.m2", "/home/vagrant/.m2"
-
-  # Make shared folders a NFS4 mount
-  #config.cache.synced_folder_opts = {
-  #  type: :nfs,
-  #  mount_options: ['rw', 'vers=4', 'tcp', 'nolock']
-  #}
-
   # Worker nodes (i.e.: ESB / AMQ)
   N = 3
   (2..N).each do |machine_id|
     config.vm.define "machine#{machine_id}" do |machine|
       # Assign network config
       machine.vm.hostname = "machine#{machine_id}.jbossfuse621.vagrant.local"
-      machine.vm.network "private_network", :auto_network => true
+      machine.vm.network "private_network", ip: "10.20.1.1#{machine_id}"
 
       # Enable provisioning with a shell script. Additional provisioners such as
       # Puppet, Chef, Ansible, Salt, and Docker are also available. Please see the
@@ -83,15 +76,11 @@ Vagrant.configure(2) do |config|
   config.vm.define "machine1" do |machine1|
     # Assign network config
     machine1.vm.hostname = "machine1.jbossfuse621.vagrant.local"
-    machine1.vm.network "private_network", :auto_network => true
-
-    # Create a forwarded port mapping which allows access to a specific port
-    # within the machine from a port on the host machine.
-    machine1.vm.network "forwarded_port", guest: 8181, host: 8181, protocol: 'tcp'
+    machine1.vm.network "private_network", ip: "10.20.1.11"
 
     # Add the JBoss Fuse zip and scripts
     machine1.vm.provision "file", source: "~/.m2/repository/org/jboss/fuse/jboss-fuse-full/6.2.1.redhat-084/jboss-fuse-full-6.2.1.redhat-084.zip", destination: "/opt/rh/jboss-fuse-full-6.2.1.redhat-084.zip"
-    machine1.vm.provision "file", source: "~/.m2/repository/com/garethahealy/fuse-setup/scaffolding-scripts/1.0.0-SNAPSHOT/scaffolding-scripts-1.0.0-20160106.143015-11-all.zip", destination: "/tmp/scaffolding-scripts.zip"
+    machine1.vm.provision "file", source: "~/.m2/repository/com/garethahealy/fuse-setup/scaffolding-scripts/1.0.0-SNAPSHOT/scaffolding-scripts-1.0.0-20160106.161000-14-all.zip", destination: "/tmp/scaffolding-scripts.zip"
 
     # Enable provisioning with a shell script. Additional provisioners such as
     # Puppet, Chef, Ansible, Salt, and Docker are also available. Please see the

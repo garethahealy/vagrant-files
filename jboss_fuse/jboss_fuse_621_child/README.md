@@ -1,19 +1,18 @@
 # jboss_fuse_621
-Image to run JBoss Fuse 6.2.1 in several VMs.
+Image to run JBoss Fuse 6.2.1 on a single VM.
 
 ## What does this image do?
-- Creates 3 VMs
+- Creates 1 VM
 - Installs Fuse via scaffolding scripts (See: https://github.com/garethahealy/jboss-fuse-setup)
-  - 3 Fabric (zookeeper) nodes
+  - 1 Fabric (zookeeper)
   - 1 ESB
   - 1 AMQ
+  - 1 Gateway
 
 ## How to run
 - mvn clean install -Pdependencies
 - vagrant up
-- vagrant ssh machine1
-- vagrant ssh machine2
-- vagrant ssh machine3
+- vagrant ssh
 
 ### Why do i need to mvn clean install?
 The vagrant file expects to find any pre-req files in your m2 directory

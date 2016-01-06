@@ -9,9 +9,9 @@
         <version>1.0.0-SNAPSHOT</version>
         <relativePath>../</relativePath>
     </parent>
-    <artifactId>jboss-fuse-621</artifactId>
+    <artifactId>jboss-fuse</artifactId>
     <packaging>pom</packaging>
-    <name>GarethHealy :: Vagrant Files :: JBoss Fuse 6.2.1</name>
+    <name>GarethHealy :: Vagrant Files :: JBoss Fuse</name>
 
     <profiles>
         <profile>

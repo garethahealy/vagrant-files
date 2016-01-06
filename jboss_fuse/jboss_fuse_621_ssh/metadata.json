@@ -1,6 +1,6 @@
 {
   "name": "garethahealy/jboss_fuse_621",
-  "description": "Base image to run JBoss Fuse 6.2.1.",
+  "description": "Image to run JBoss Fuse 6.2.1 on 3 VMs.",
   "versions": [{
     "version": "1.0.0",
     "providers": [{
