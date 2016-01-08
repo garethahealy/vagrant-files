@@ -35,6 +35,20 @@
                     <version>BZ-1281514</version>
                     <type>zip</type>
                 </dependency>
+
+                <dependency>
+                    <groupId>org.jboss.on</groupId>
+                    <artifactId>jon-plugin-pack-fuse</artifactId>
+                    <version>3.3.0.GA</version>
+                    <type>zip</type>
+                </dependency>
+                <dependency>
+                    <groupId>org.jboss.on</groupId>
+                    <artifactId>jon-plugin-pack-fuse-patch</artifactId>
+                    <version>3.3.0.GA-update-03</version>
+                    <type>zip</type>
+                </dependency>
+
                 <dependency>
                     <groupId>com.garethahealy.fuse-setup</groupId>
                     <artifactId>scaffolding-scripts</artifactId>

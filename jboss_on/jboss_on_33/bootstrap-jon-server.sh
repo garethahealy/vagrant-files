@@ -21,8 +21,13 @@ cd /opt/rh/jon-server-3.3.0.GA &&
     rm -f modules/org/rhq/server-startup/main/deployments/rhq.ear/lib/commons-collections-3.2.1.jar
 
 # Apply hotfix
-cd /opt/rh
+cd /opt/rh &&
     unzip -od /opt/rh/jon-server-3.3.0.GA patch-common-collections-BZ-1281514.zip
+
+# Add Fuse plugins
+cd /opt/rh &&
+    unzip -od /opt/rh/jon-server-3.3.0.GA/plugins jon-plugin-pack-fuse-3.3.0.GA.zip &&
+    unzip -od /opt/rh/jon-server-3.3.0.GA/plugins jon-plugin-pack-fuse-patch-3.3.0.GA-update-03.zip
 
 sudo chown -R jon:jon /opt/rh/jon-server-3.3.0.GA
 sudo -u jon /opt/rh/jon-server-3.3.0.GA/bin/rhqctl install --start
