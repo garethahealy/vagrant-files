@@ -9,7 +9,7 @@
         <version>1.0.0-SNAPSHOT</version>
         <relativePath>../</relativePath>
     </parent>
-    <artifactId>jboss-fuse</artifactId>
+    <artifactId>jboss-on</artifactId>
     <packaging>pom</packaging>
     <name>GarethHealy :: Vagrant Files :: JBoss ON</name>
 
