@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+
+    <modelVersion>4.0.0</modelVersion>
+    <parent>
+        <groupId>com.garethahealy.vagrant</groupId>
+        <artifactId>vagrant-files</artifactId>
+        <version>1.0.0-SNAPSHOT</version>
+        <relativePath>../</relativePath>
+    </parent>
+    <artifactId>jboss-fuse</artifactId>
+    <packaging>pom</packaging>
+    <name>GarethHealy :: Vagrant Files :: JBoss ON</name>
+
+    <profiles>
+        <profile>
+            <id>dependencies</id>
+            <dependencies>
+                <dependency>
+                    <groupId>org.jboss.on</groupId>
+                    <artifactId>jon-server</artifactId>
+                    <version>3.3.0.GA</version>
+                    <type>zip</type>
+                </dependency>
+                <dependency>
+                    <groupId>org.jboss.on</groupId>
+                    <artifactId>jon-server-patch</artifactId>
+                    <version>3.3-update-04</version>
+                    <type>zip</type>
+                </dependency>
+                <dependency>
+                    <groupId>org.jboss.on</groupId>
+                    <artifactId>patch-common-collections</artifactId>
+                    <version>BZ-1281514</version>
+                    <type>zip</type>
+                </dependency>
+                <dependency>
+                    <groupId>com.garethahealy.fuse-setup</groupId>
+                    <artifactId>scaffolding-scripts</artifactId>
+                    <version>1.0.0</version>
+                    <classifier>all</classifier>
+                    <type>zip</type>
+                </dependency>
+            </dependencies>
+        </profile>
+    </profiles>
+
+</project>

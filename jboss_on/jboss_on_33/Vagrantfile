@@ -1,0 +1,112 @@
+# -*- mode: ruby -*-
+# vi: set ft=ruby :
+
+Vagrant.require_version ">= 1.8.0"
+
+# Install required Vagrant plugins
+missing_plugins_installed = false
+required_plugins = %w(vagrant-vbguest vagrant-hostmanager vagrant-cachier vagrant-triggers vagrant-auto_network)
+
+required_plugins.each do |plugin|
+  if !Vagrant.has_plugin? plugin
+    system "vagrant plugin install #{plugin}"
+    missing_plugins_installed = true
+  end
+end
+
+# If any plugins were missing and have been installed, re-run vagrant
+if missing_plugins_installed
+  exec "vagrant #{ARGV.join(" ")}"
+end
+
+AutoNetwork.default_pool = '10.20.3.2/24'
+
+require 'socket'
+def private_ipv4
+  Socket.ip_address_list.detect{|intf| intf.ipv4_private?}
+end
+
+parent_ip = private_ipv4.ip_address unless private_ipv4.nil?
+
+$setNexusIp = <<SCRIPT
+echo "#{parent_ip}      gareths-macbook" >> /etc/hosts
+SCRIPT
+
+# All Vagrant configuration is done below. The "2" in Vagrant.configure
+# configures the configuration version (we support older styles for
+# backwards compatibility). Please don't change it unless you know what
+# you're doing.
+Vagrant.configure(2) do |config|
+  # The most common configuration options are documented and commented below.
+  # For a complete reference, please see the online documentation at
+  # https://docs.vagrantup.com.
+
+  # Every Vagrant development environment requires a box. You can search for
+  # boxes at https://atlas.hashicorp.com/search.
+  config.vm.box = "garethahealy/centos72_java8"
+    config.vm.box_version = "= 1.0.1"
+
+  # Hashicorp atlas push
+  config.push.define "atlas" do |push|
+    push.app = "garethahealy/jboss_fuse_621"
+  end
+
+  # Config /etc/hosts via plugin
+  config.hostmanager.enabled = true
+  config.hostmanager.manage_host = true
+  config.hostmanager.ignore_private_ip = false
+  config.hostmanager.include_offline = true
+
+  # Postgres DB
+  config.vm.define "postgres" do |postgres|
+    # Assign network config
+    postgres.vm.hostname = "postgres.jbosson33.vagrant.local"
+    postgres.vm.network "private_network", ip: "10.20.3.11"
+
+    # Enable provisioning with a shell script. Additional provisioners such as
+    # Puppet, Chef, Ansible, Salt, and Docker are also available. Please see the
+    # documentation for more information about their specific syntax and use.
+    postgres.vm.provision :shell, inline: $setNexusIp, privileged: false
+    postgres.vm.provision :shell, path: "bootstrap-postgres.sh", privileged: false
+  end
+
+  # JON Server
+  config.vm.define "jonserver" do |jonserver|
+    # Assign network config
+    jonserver.vm.hostname = "jonserver.jbosson33.vagrant.local"
+    jonserver.vm.network "private_network", ip: "10.20.3.12"
+
+    # Add the JBoss ON zips
+    jonserver.vm.provision "file", source: "~/.m2/repository/org/jboss/on/jon-server/3.3.0.GA/jon-server-3.3.0.GA.zip", destination: "/opt/rh/jon-server-3.3.0.GA.zip"
+    jonserver.vm.provision "file", source: "~/.m2/repository/org/jboss/on/jon-server-patch/3.3-update-04/jon-server-patch-3.3-update-04.zip", destination: "/opt/rh/jon-server-patch-3.3-update-04.zip"
+    jonserver.vm.provision "file", source: "~/.m2/repository/org/jboss/on/patch-common-collections/BZ-1281514/patch-common-collections-BZ-1281514.zip", destination: "/opt/rh/patch-common-collections-BZ-1281514.zip"
+
+    # Enable provisioning with a shell script. Additional provisioners such as
+    # Puppet, Chef, Ansible, Salt, and Docker are also available. Please see the
+    # documentation for more information about their specific syntax and use.
+    jonserver.vm.provision :shell, inline: $setNexusIp, privileged: false
+    jonserver.vm.provision :shell, path: "bootstrap-jon.sh", privileged: false
+    jonserver.vm.provision :shell, path: "bootstrap-jon-server.sh", privileged: false
+
+    # Complete message
+    jonserver.vm.post_up_message = "http://jonserver.jbosson33.vagrant.local:8181/"
+  end
+
+  # JON Agent
+  config.vm.define "jonagent" do |jonagent|
+    # Assign network config
+    jonagent.vm.hostname = "jonagent.jbosson33.vagrant.local"
+    jonagent.vm.network "private_network", ip: "10.20.3.13"
+
+    # Add the JBoss Fuse zip and scripts
+    jonagent.vm.provision "file", source: "~/.m2/repository/org/jboss/fuse/jboss-fuse-full/6.2.1.redhat-084/jboss-fuse-full-6.2.1.redhat-084.zip", destination: "/opt/rh/jboss-fuse-full-6.2.1.redhat-084.zip"
+    jonagent.vm.provision "file", source: "~/.m2/repository/com/garethahealy/fuse-setup/scaffolding-scripts/1.0.0/scaffolding-scripts-1.0.0-all.zip", destination: "/tmp/scaffolding-scripts.zip"
+
+    # Enable provisioning with a shell script. Additional provisioners such as
+    # Puppet, Chef, Ansible, Salt, and Docker are also available. Please see the
+    # documentation for more information about their specific syntax and use.
+    jonagent.vm.provision :shell, inline: $setNexusIp, privileged: false
+    jonagent.vm.provision :shell, path: "bootstrap-jon.sh", privileged: false
+    jonagent.vm.provision :shell, path: "bootstrap-jon-agent.sh", privileged: false
+  end
+end
