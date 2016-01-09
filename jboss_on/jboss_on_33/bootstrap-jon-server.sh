@@ -26,8 +26,11 @@ cd /opt/rh &&
 
 # Add Fuse plugins
 cd /opt/rh &&
-    unzip -od /opt/rh/jon-server-3.3.0.GA/plugins jon-plugin-pack-fuse-3.3.0.GA.zip &&
-    unzip -od /opt/rh/jon-server-3.3.0.GA/plugins jon-plugin-pack-fuse-patch-3.3.0.GA-update-03.zip
+    unzip -d /tmp/jonplugins jon-plugin-pack-fuse-3.3.0.GA.zip &&
+    unzip -d /tmp/jonplugins jon-plugin-pack-fuse-patch-3.3.0.GA-update-03.zip
+    mv /tmp/jonplugins/jon-plugin-pack-fuse-3.3.0.GA/* /opt/rh/jon-server-3.3.0.GA/plugins &&
+    mv /tmp/jonplugins/plugins/* /opt/rh/jon-server-3.3.0.GA/plugins
+
 
 # Overwritting patched files
 mv /opt/rh/jon-server-3.3.0.GA/bin/rhqctl.new /opt/rh/jon-server-3.3.0.GA/bin/rhqctl
