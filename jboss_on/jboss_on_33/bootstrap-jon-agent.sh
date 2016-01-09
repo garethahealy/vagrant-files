@@ -7,10 +7,15 @@ cd /tmp &&
     unzip scaffolding-scripts.zip &&
     cd scripts &&
     chmod -R 755 *.sh &&
-    ./install-fuse-and-deploy.sh -e vagrant-child -u vagrant
+    ./install-fuse.sh -e vagrant-child -u vagrant &&
+    /opt/rh/jboss-fuse-6.2.1.redhat-084/bin/start
 
-##todo - get agent and install
 cd /opt/rh &&
-    wget -O jon-agent-4.12.0.JON330GA.jar http://jonserver.jbosson33.vagrant.local:7080/agentupdate/download
-   # && java -jar jon-agent-4.12.0.JON330GA.jar --install
-
+    wget -O jon-agent-4.12.0.JON330GA.jar http://jonserver.jbosson33.vagrant.local:7080/agentupdate/download &&
+    java -jar jon-agent-4.12.0.JON330GA.jar --install &&
+    mv agent-configuration-template.xml rhq-agent/conf/agent-configuration.xml &&
+    sed -i "s/#setup-flag/true/" rhq-agent/conf/agent-configuration.xml &&
+    sed -i "s/#rhq.agent.name/jonagent/" rhq-agent/conf/agent-configuration.xml &&
+    sed -i "s/#bind-address/10.20.3.13/" rhq-agent/conf/agent-configuration.xml &&
+    sed -i "s/#server.bind-address/jonserver.jbosson33.vagrant.local/" rhq-agent/conf/agent-configuration.xml &&
+    rhq-agent/bin/rhq-agent-wrapper.sh start
