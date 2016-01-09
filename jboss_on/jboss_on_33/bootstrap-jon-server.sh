@@ -49,5 +49,3 @@ cd /opt/rh/jon-server-3.3.0.GA/bin &&
     ./rhqctl install &&
     ./rhqctl start &&
     ./rhqctl status
-
-
