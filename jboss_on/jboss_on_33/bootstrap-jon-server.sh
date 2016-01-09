@@ -29,7 +29,22 @@ cd /opt/rh &&
     unzip -od /opt/rh/jon-server-3.3.0.GA/plugins jon-plugin-pack-fuse-3.3.0.GA.zip &&
     unzip -od /opt/rh/jon-server-3.3.0.GA/plugins jon-plugin-pack-fuse-patch-3.3.0.GA-update-03.zip
 
-sudo chown -R jon:jon /opt/rh/jon-server-3.3.0.GA
-sudo -u jon /opt/rh/jon-server-3.3.0.GA/bin/rhqctl install --start
+# Overwritting patched files
+mv /opt/rh/jon-server-3.3.0.GA/bin/rhqctl.new /opt/rh/jon-server-3.3.0.GA/bin/rhqctl
+mv /opt/rh/jon-server-3.3.0.GA/bin/rhq-server.properties.new /opt/rh/jon-server-3.3.0.GA/bin/rhq-server.properties
 
-## todo: need to provide options
+# Config JON
+sudo sed -i "s/rhq.server.database.server-name=127.0.0.1/rhq.server.database.server-name=jon-server/" /opt/rh/jon-server-3.3.0.GA/bin/rhq-server.properties
+sudo sed -i "s/rhq.server.database.connection-url=jdbc:postgresql:\/\/127.0.0.1:5432\/rhq/rhq.server.database.connection-url=jdbc:postgresql:\/\/postgres.jbosson33.vagrant.local:5432\/rhq/" /opt/rh/jon-server-3.3.0.GA/bin/rhq-server.properties
+sudo sed -i "s/rhq.autoinstall.server.admin.password=/rhq.autoinstall.server.admin.password=x1XwrxKuPvYUILiOnOZTLg==/" /opt/rh/jon-server-3.3.0.GA/bin/rhq-server.properties
+sudo sed -i "s/jboss.bind.address=/jboss.bind.address=0.0.0.0/" /opt/rh/jon-server-3.3.0.GA/bin/rhq-server.properties
+
+#sudo chown -R jon:jon /opt/rh/jon-server-3.3.0.GA
+#sudo -u jon /opt/rh/jon-server-3.3.0.GA/bin/rhqctl install --start
+
+cd /opt/rh/jon-server-3.3.0.GA/bin &&
+    ./rhqctl install &&
+    ./rhqctl start &&
+    ./rhqctl status
+
+

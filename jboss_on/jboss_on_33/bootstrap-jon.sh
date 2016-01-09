@@ -14,6 +14,11 @@ sudo firewall-cmd --zone=public --add-port=16163/tcp --permanent
 sudo firewall-cmd --zone=public --add-port=9142/tcp --permanent
 sudo firewall-cmd --zone=public --add-port=7299/tcp --permanent
 sudo firewall-cmd --zone=public --add-port=7100/tcp --permanent
+
+sudo firewall-cmd --zone=public --add-port=5432/tcp --permanent
 sudo firewall-cmd --reload
+
+
+
 
 
