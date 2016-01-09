@@ -13,6 +13,10 @@
     <packaging>pom</packaging>
     <name>GarethHealy :: Vagrant Files :: JBoss Fuse</name>
 
+    <properties>
+        <license.skipDownloadLicenses>true</license.skipDownloadLicenses>
+    </properties>
+
     <profiles>
         <profile>
             <id>dependencies</id>
