@@ -46,41 +46,26 @@ Vagrant.configure(2) do |config|
   config.hostmanager.ignore_private_ip = false
   config.hostmanager.include_offline = true
 
-  # Postgres DB1
-  config.vm.define "postgresmutli1" do |postgresmutli1|
-    # Assign network config
-    postgresmutli1.vm.hostname = "postgresmutli1.jbosson33.vagrant.local"
-    postgresmutli1.vm.network "private_network", ip: "10.20.3.21"
-
-    # Enable provisioning with a shell script. Additional provisioners such as
-    # Puppet, Chef, Ansible, Salt, and Docker are also available. Please see the
-    # documentation for more information about their specific syntax and use.
-    postgresmutli1.vm.provision :shell, path: "bootstrap-postgres.sh", privileged: false
-
-    # Complete message
-    postgresmutli1.vm.post_up_message = "vagrant ssh postgresmutli1"
-  end
-
   # Postgres DB
-  config.vm.define "postgresmutli2" do |postgresmutli2|
+  config.vm.define "postgresmutli" do |postgresmutli|
     # Assign network config
-    postgresmutli2.vm.hostname = "postgresmutli2.jbosson33.vagrant.local"
-    postgresmutli2.vm.network "private_network", ip: "10.20.3.22"
+    postgresmutli.vm.hostname = "postgresmutli.jbosson33.vagrant.local"
+    postgresmutli.vm.network "private_network", ip: "10.20.3.21"
 
     # Enable provisioning with a shell script. Additional provisioners such as
     # Puppet, Chef, Ansible, Salt, and Docker are also available. Please see the
     # documentation for more information about their specific syntax and use.
-    postgresmutli2.vm.provision :shell, path: "bootstrap-postgres.sh", privileged: false
+    postgresmutli.vm.provision :shell, path: "bootstrap-postgres.sh", privileged: false
 
     # Complete message
-    postgresmutli2.vm.post_up_message = "vagrant ssh postgresmutli2"
+    postgresmutli.vm.post_up_message = "vagrant ssh postgresmutli"
   end
 
   # JON Server 1
   config.vm.define "jonservermulti1" do |jonservermulti1|
     # Assign network config
     jonservermulti1.vm.hostname = "jonservermulti1.jbosson33.vagrant.local"
-    jonservermulti1.vm.network "private_network", ip: "10.20.3.23"
+    jonservermulti1.vm.network "private_network", ip: "10.20.3.22"
 
     # Add the JBoss ON zips
     jonservermulti1.vm.provision "file", source: "~/.m2/repository/org/jboss/on/jon-server/3.3.0.GA/jon-server-3.3.0.GA.zip", destination: "/opt/rh/jon-server-3.3.0.GA.zip"
@@ -94,7 +79,6 @@ Vagrant.configure(2) do |config|
     # documentation for more information about their specific syntax and use.
     jonservermulti1.vm.provision :shell, path: "bootstrap-jon.sh", privileged: false
     jonservermulti1.vm.provision :shell, path: "bootstrap-jon-server.sh", privileged: false
-    jonservermulti1.vm.provision :shell, path: "bootstrap-jon-server1.sh", privileged: false
 
     # Complete message
     jonservermulti1.vm.post_up_message = "http://jonservermulti1.jbosson33.vagrant.local:7080/"
@@ -104,7 +88,7 @@ Vagrant.configure(2) do |config|
   config.vm.define "jonservermulti2" do |jonservermulti2|
     # Assign network config
     jonservermulti2.vm.hostname = "jonservermulti2.jbosson33.vagrant.local"
-    jonservermulti2.vm.network "private_network", ip: "10.20.3.24"
+    jonservermulti2.vm.network "private_network", ip: "10.20.3.23"
 
     # Add the JBoss ON zips
     jonservermulti2.vm.provision "file", source: "~/.m2/repository/org/jboss/on/jon-server/3.3.0.GA/jon-server-3.3.0.GA.zip", destination: "/opt/rh/jon-server-3.3.0.GA.zip"
@@ -118,7 +102,6 @@ Vagrant.configure(2) do |config|
     # documentation for more information about their specific syntax and use.
     jonservermulti2.vm.provision :shell, path: "bootstrap-jon.sh", privileged: false
     jonservermulti2.vm.provision :shell, path: "bootstrap-jon-server.sh", privileged: false
-    jonservermulti2.vm.provision :shell, path: "bootstrap-jon-server2.sh", privileged: false
 
     # Complete message
     jonservermulti2.vm.post_up_message = "http://jonservermulti2.jbosson33.vagrant.local:7080/"
@@ -128,7 +111,7 @@ Vagrant.configure(2) do |config|
   config.vm.define "jonagentmulti" do |jonagentmulti|
     # Assign network config
     jonagentmulti.vm.hostname = "jonagentmulti.jbosson33.vagrant.local"
-    jonagentmulti.vm.network "private_network", ip: "10.20.3.25"
+    jonagentmulti.vm.network "private_network", ip: "10.20.3.24"
 
     # Add the JBoss Fuse zip and scripts
     jonagentmulti.vm.provision "file", source: "env/agent/agent-configuration-template.xml", destination: "/opt/rh/agent-configuration-template.xml"

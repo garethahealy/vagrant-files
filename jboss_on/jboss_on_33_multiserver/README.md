@@ -2,8 +2,8 @@
 Image to run JBoss ON 3.3 with multiple JON Servers running.
 
 ## What does this image do?
-- Creates 5 VMs
-  - 2 Postgres DBs
+- Creates 4 VMs
+  - Postgres DB
   - 2 JON Servers
   - JON Agent with JBoss Fuse running
 

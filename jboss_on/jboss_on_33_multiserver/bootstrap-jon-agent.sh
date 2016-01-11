@@ -16,8 +16,8 @@ cd /opt/rh &&
     mv agent-configuration-template.xml rhq-agent/conf/agent-configuration.xml &&
     sed -i "s/#setup-flag/true/" rhq-agent/conf/agent-configuration.xml &&
     sed -i "s/#rhq.agent.name/jonagent/" rhq-agent/conf/agent-configuration.xml &&
-    sed -i "s/#bind-address/10.20.3.25/" rhq-agent/conf/agent-configuration.xml &&
-    sed -i "s/#server.bind-address/jonservermulti1.jbosson33.vagrant.local/" rhq-agent/conf/agent-configuration.xml &&
+    sed -i "s/#bind-address/10.20.3.24/" rhq-agent/conf/agent-configuration.xml &&
+    sed -i "s/#server.bind-address/jonservermulti1.jbosson33.vagrant.local jonservermulti2.jbosson33.vagrant.local/" rhq-agent/conf/agent-configuration.xml &&
     sed -i "s/#connector.transport/sslsocket/" rhq-agent/conf/agent-configuration.xml &&
     cd rhq-agent/bin &&
     ./rhq-agent-wrapper.sh start
