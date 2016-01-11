@@ -49,11 +49,11 @@ sudo sed -i "s/jboss.bind.address=/jboss.bind.address=0.0.0.0/" /opt/rh/jon-serv
 sudo sed -i "s/rhq.server.database.server-name=127.0.0.1/rhq.server.database.server-name=postgresmutli.jbosson33.vagrant.local/" /opt/rh/jon-server-3.3.0.GA/bin/rhq-server.properties
 sudo sed -i "s/rhq.server.database.connection-url=jdbc:postgresql:\/\/127.0.0.1:5432\/rhq/rhq.server.database.connection-url=jdbc:postgresql:\/\/postgresmutli.jbosson33.vagrant.local:5432\/rhq/" /opt/rh/jon-server-3.3.0.GA/bin/rhq-server.properties
 
+# https://access.redhat.com/documentation/en-US/Red_Hat_JBoss_Operations_Network/3.3/html/Admin_and_Config/configuring-ssl.html
+# Config JON SSL Server <-> Agent
+sudo sed -i "s/rhq.communications.connector.transport=servlet/rhq.communications.connector.transport=sslservlet/" /opt/rh/jon-server-3.3.0.GA/bin/rhq-server.properties
+
 cd /opt/rh/jon-server-3.3.0.GA/bin &&
     ./rhqctl install &&
     ./rhqctl start &&
     ./rhqctl status
-
-# https://access.redhat.com/documentation/en-US/Red_Hat_JBoss_Operations_Network/3.3/html/Admin_and_Config/configuring-ssl.html
-# Config JON SSL Server <-> Agent
-sudo sed -i "s/rhq.communications.connector.transport=servlet/rhq.communications.connector.transport=sslservlet/" /opt/rh/jon-server-3.3.0.GA/bin/rhq-server.properties

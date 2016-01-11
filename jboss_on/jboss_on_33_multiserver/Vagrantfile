@@ -107,24 +107,47 @@ Vagrant.configure(2) do |config|
     jonservermulti2.vm.post_up_message = "http://jonservermulti2.jbosson33.vagrant.local:7080/"
   end
 
-  # JON Agent
-  config.vm.define "jonagentmulti" do |jonagentmulti|
+  # JON Agent1
+  config.vm.define "jonagentmulti1" do |jonagentmulti1|
     # Assign network config
-    jonagentmulti.vm.hostname = "jonagentmulti.jbosson33.vagrant.local"
-    jonagentmulti.vm.network "private_network", ip: "10.20.3.24"
+    jonagentmulti1.vm.hostname = "jonagentmulti1.jbosson33.vagrant.local"
+    jonagentmulti1.vm.network "private_network", ip: "10.20.3.24"
 
     # Add the JBoss Fuse zip and scripts
-    jonagentmulti.vm.provision "file", source: "env/agent/agent-configuration-template.xml", destination: "/opt/rh/agent-configuration-template.xml"
-    jonagentmulti.vm.provision "file", source: "~/.m2/repository/org/jboss/fuse/jboss-fuse-full/6.2.1.redhat-084/jboss-fuse-full-6.2.1.redhat-084.zip", destination: "/opt/rh/jboss-fuse-full-6.2.1.redhat-084.zip"
-    jonagentmulti.vm.provision "file", source: "~/.m2/repository/com/garethahealy/fuse-setup/scaffolding-scripts/1.0.1/scaffolding-scripts-1.0.1-all.zip", destination: "/tmp/scaffolding-scripts.zip"
+    jonagentmulti1.vm.provision "file", source: "env/agent/agent-configuration-template.xml", destination: "/opt/rh/agent-configuration-template.xml"
+    jonagentmulti1.vm.provision "file", source: "~/.m2/repository/org/jboss/fuse/jboss-fuse-full/6.2.1.redhat-084/jboss-fuse-full-6.2.1.redhat-084.zip", destination: "/opt/rh/jboss-fuse-full-6.2.1.redhat-084.zip"
+    jonagentmulti1.vm.provision "file", source: "~/.m2/repository/com/garethahealy/fuse-setup/scaffolding-scripts/1.0.2-SNAPSHOT/scaffolding-scripts-1.0.2-20160111.193507-2-all.zip", destination: "/tmp/scaffolding-scripts.zip"
 
     # Enable provisioning with a shell script. Additional provisioners such as
     # Puppet, Chef, Ansible, Salt, and Docker are also available. Please see the
     # documentation for more information about their specific syntax and use.
-    jonagentmulti.vm.provision :shell, path: "bootstrap-jon.sh", privileged: false
-    jonagentmulti.vm.provision :shell, path: "bootstrap-jon-agent.sh", privileged: false
+    jonagentmulti1.vm.provision :shell, path: "bootstrap-jon.sh", privileged: false
+    jonagentmulti1.vm.provision :shell, path: "bootstrap-jon-agent.sh", privileged: false
+    jonagentmulti1.vm.provision :shell, path: "bootstrap-jon-agent1.sh", privileged: false
 
     # Complete message
-    jonagentmulti.vm.post_up_message = "vagrant ssh jonagentmulti"
+    jonagentmulti1.vm.post_up_message = "vagrant ssh jonagentmulti1 - /tmp/scripts/install-fuse.sh -e vagrant-child && /opt/rh/jboss-fuse-6.2.1.redhat-084/bin/start"
+  end
+
+  # JON Agent2
+  config.vm.define "jonagentmulti2" do |jonagentmulti2|
+    # Assign network config
+    jonagentmulti2.vm.hostname = "jonagentmulti2.jbosson33.vagrant.local"
+    jonagentmulti2.vm.network "private_network", ip: "10.20.3.25"
+
+    # Add the JBoss Fuse zip and scripts
+    jonagentmulti2.vm.provision "file", source: "env/agent/agent-configuration-template.xml", destination: "/opt/rh/agent-configuration-template.xml"
+    jonagentmulti2.vm.provision "file", source: "~/.m2/repository/org/jboss/fuse/jboss-fuse-full/6.2.1.redhat-084/jboss-fuse-full-6.2.1.redhat-084.zip", destination: "/opt/rh/jboss-fuse-full-6.2.1.redhat-084.zip"
+    jonagentmulti2.vm.provision "file", source: "~/.m2/repository/com/garethahealy/fuse-setup/scaffolding-scripts/1.0.2-SNAPSHOT/scaffolding-scripts-1.0.2-20160111.193507-2-all.zip", destination: "/tmp/scaffolding-scripts.zip"
+
+    # Enable provisioning with a shell script. Additional provisioners such as
+    # Puppet, Chef, Ansible, Salt, and Docker are also available. Please see the
+    # documentation for more information about their specific syntax and use.
+    jonagentmulti2.vm.provision :shell, path: "bootstrap-jon.sh", privileged: false
+    jonagentmulti2.vm.provision :shell, path: "bootstrap-jon-agent.sh", privileged: false
+    jonagentmulti2.vm.provision :shell, path: "bootstrap-jon-agent2.sh", privileged: false
+
+    # Complete message
+    jonagentmulti2.vm.post_up_message = "vagrant ssh jonagentmulti2 - /tmp/scripts/install-fuse.sh -e vagrant-child && /opt/rh/jboss-fuse-6.2.1.redhat-084/bin/start"
   end
 end

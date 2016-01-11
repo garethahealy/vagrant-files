@@ -53,9 +53,6 @@ sudo sed -i "s/rhq.server.database.connection-url=jdbc:postgresql:\/\/127.0.0.1:
 # Config JON SSL Server <-> Agent
 sudo sed -i "s/rhq.communications.connector.transport=servlet/rhq.communications.connector.transport=sslservlet/" /opt/rh/jon-server-3.3.0.GA/bin/rhq-server.properties
 
-#sudo chown -R jon:jon /opt/rh/jon-server-3.3.0.GA
-#sudo -u jon /opt/rh/jon-server-3.3.0.GA/bin/rhqctl install --start
-
 cd /opt/rh/jon-server-3.3.0.GA/bin &&
     ./rhqctl install &&
     ./rhqctl start &&
