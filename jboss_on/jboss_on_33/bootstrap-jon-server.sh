@@ -2,6 +2,12 @@
 
 set -x
 
+# https://www.sslshopper.com/article-how-to-create-a-self-signed-certificate-using-java-keytool.html
+# Generate keystore (Server) and truststore (Agent)
+keytool -genkey -keystore server-keystore.jks -alias jonserver  -storepass password -validity 360 -keysize 2048 -dname "CN=jonserver.jbosson33.vagrant.local, OU=Development, O=Gareth Healy, L=Sheffield, S=South Yorkshire, C=UK"
+keytool -export -rfc -keystore server-keystore.jks -storepass password -alias jonserver -file jonserver.cer
+keytool -import -trustcacerts -keystore client-truststore.jks -storepass password -file jonserver.cer -alias jonserver -noprompt
+
 # Create JON user
 sudo adduser jon
 echo "jon" | sudo passwd "jon" --stdin
@@ -36,11 +42,15 @@ cd /opt/rh &&
 mv /opt/rh/jon-server-3.3.0.GA/bin/rhqctl.new /opt/rh/jon-server-3.3.0.GA/bin/rhqctl
 mv /opt/rh/jon-server-3.3.0.GA/bin/rhq-server.properties.new /opt/rh/jon-server-3.3.0.GA/bin/rhq-server.properties
 
-# Config JON
+# Config JON DB settings
 sudo sed -i "s/rhq.server.database.server-name=127.0.0.1/rhq.server.database.server-name=jon-server/" /opt/rh/jon-server-3.3.0.GA/bin/rhq-server.properties
 sudo sed -i "s/rhq.server.database.connection-url=jdbc:postgresql:\/\/127.0.0.1:5432\/rhq/rhq.server.database.connection-url=jdbc:postgresql:\/\/postgres.jbosson33.vagrant.local:5432\/rhq/" /opt/rh/jon-server-3.3.0.GA/bin/rhq-server.properties
 sudo sed -i "s/rhq.autoinstall.server.admin.password=/rhq.autoinstall.server.admin.password=x1XwrxKuPvYUILiOnOZTLg==/" /opt/rh/jon-server-3.3.0.GA/bin/rhq-server.properties
 sudo sed -i "s/jboss.bind.address=/jboss.bind.address=0.0.0.0/" /opt/rh/jon-server-3.3.0.GA/bin/rhq-server.properties
+
+# https://access.redhat.com/documentation/en-US/Red_Hat_JBoss_Operations_Network/3.3/html/Admin_and_Config/configuring-ssl.html
+# Config JON SSL Server <-> Agent
+sudo sed -i "s/rhq.communications.connector.transport=servlet/rhq.communications.connector.transport=sslservlet/" /opt/rh/jon-server-3.3.0.GA/bin/rhq-server.properties
 
 #sudo chown -R jon:jon /opt/rh/jon-server-3.3.0.GA
 #sudo -u jon /opt/rh/jon-server-3.3.0.GA/bin/rhqctl install --start

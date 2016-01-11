@@ -2,6 +2,7 @@
 
 set -x
 
+# Generate SSH key
 ssh-keygen -f ~/.ssh/id_rsa -N '' -b 4048 -t rsa -C "VagrantFabric"
 
 echo "StrictHostKeyChecking no

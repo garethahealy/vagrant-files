@@ -6,7 +6,8 @@ set -x
 ulimit -u 4096
 ulimit -n 4096
 
-# Open firewall for JON - https://access.redhat.com/documentation/en-US/Red_Hat_JBoss_Operations_Network/3.3/pdf/Installation_Guide/Red_Hat_JBoss_Operations_Network-3.3-Installation_Guide-en-US.pdf
+# Open firewall for JON -
+## https://access.redhat.com/documentation/en-US/Red_Hat_JBoss_Operations_Network/3.3/pdf/Installation_Guide/Red_Hat_JBoss_Operations_Network-3.3-Installation_Guide-en-US.pdf
 ## Table 3.2. Default JBoss ON Ports
 sudo firewall-cmd --zone=public --add-port=7080/tcp --permanent
 sudo firewall-cmd --zone=public --add-port=7443/tcp --permanent

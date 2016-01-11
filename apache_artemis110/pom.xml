@@ -16,7 +16,7 @@
     <properties>
         <license.skipDownloadLicenses>true</license.skipDownloadLicenses>
     </properties>
-    
+
     <profiles>
         <profile>
             <id>dependencies</id>

@@ -1051,7 +1051,7 @@ commands named "config", "setconfig" and "setup" and the command line options
                talk to the agent.
                -->
                <entry key="rhq.communications.connector.rhqtype"          value="agent" />
-               <entry key="rhq.communications.connector.transport"        value="socket" />
+               <entry key="rhq.communications.connector.transport"        value="#connector.transport" />
                <entry key="rhq.communications.connector.bind-port"        value="16163" />
                <entry key="rhq.communications.connector.bind-address"     value="#bind-address" />
                <!--
