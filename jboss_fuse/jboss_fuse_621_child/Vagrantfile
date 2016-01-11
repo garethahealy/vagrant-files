@@ -19,7 +19,7 @@ if missing_plugins_installed
   exec "vagrant #{ARGV.join(" ")}"
 end
 
-AutoNetwork.default_pool = '10.20.1.2/24'
+AutoNetwork.default_pool = '10.20.1.11/24'
 
 require 'socket'
 def private_ipv4

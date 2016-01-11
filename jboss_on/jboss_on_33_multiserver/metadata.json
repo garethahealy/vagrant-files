@@ -1,0 +1,10 @@
+{
+  "name": "garethahealy/jboss_on_33_multiserver",
+  "description": "Image to run JBoss ON 3.3 with multiple JON Servers running.",
+  "versions": [{
+    "version": "1.0.0",
+    "providers": [{
+      "name": "virtualbox"
+    }]
+  }]
+}

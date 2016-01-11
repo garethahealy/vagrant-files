@@ -19,7 +19,7 @@ if missing_plugins_installed
   exec "vagrant #{ARGV.join(" ")}"
 end
 
-AutoNetwork.default_pool = '10.20.3.2/24'
+AutoNetwork.default_pool = '10.20.3.11/24'
 
 # All Vagrant configuration is done below. The "2" in Vagrant.configure
 # configures the configuration version (we support older styles for
@@ -56,6 +56,9 @@ Vagrant.configure(2) do |config|
     # Puppet, Chef, Ansible, Salt, and Docker are also available. Please see the
     # documentation for more information about their specific syntax and use.
     postgres.vm.provision :shell, path: "bootstrap-postgres.sh", privileged: false
+
+    # Complete message
+    postgres.vm.post_up_message = "vagrant ssh postgres"
   end
 
   # JON Server
@@ -97,5 +100,8 @@ Vagrant.configure(2) do |config|
     # documentation for more information about their specific syntax and use.
     jonagent.vm.provision :shell, path: "bootstrap-jon.sh", privileged: false
     jonagent.vm.provision :shell, path: "bootstrap-jon-agent.sh", privileged: false
+
+    # Complete message
+    jonagent.vm.post_up_message = "vagrant ssh jonagent"
   end
 end

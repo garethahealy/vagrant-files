@@ -19,7 +19,7 @@ if missing_plugins_installed
   exec "vagrant #{ARGV.join(" ")}"
 end
 
-AutoNetwork.default_pool = '10.20.2.2/24'
+AutoNetwork.default_pool = '10.20.2.11/24'
 
 # All Vagrant configuration is done below. The "2" in Vagrant.configure
 # configures the configuration version (we support older styles for

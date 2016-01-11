@@ -18,7 +18,7 @@ Image to run JBoss ON 3.3.
 The vagrant file expects to find any pre-req files in your m2 directory
 
 ## Log into JON
-http://jonserver.jbosson33.vagrant.local:7080/
-U: rhqadmin
-P: rhqadmin
+- http://jonserver.jbosson33.vagrant.local:7080/
+- U: rhqadmin
+- P: rhqadmin
 
