@@ -14,7 +14,7 @@ Image to run JBoss ON 3.3 with multiple JON Servers running. This is to show: ht
 - vagrant ssh jonservermulti2
 - vagrant ssh jonagentmulti1
 - vagrant ssh jonagentmulti2
-- vagrant ssh postgresmutli
+- vagrant ssh postgresmulti
 
 ### Why do i need to mvn clean install?
 The vagrant file expects to find any pre-req files in your m2 directory
@@ -24,7 +24,6 @@ The vagrant file expects to find any pre-req files in your m2 directory
 - http://jonservermulti2.jbosson33.vagrant.local:7080/
 - U: rhqadmin
 - P: rhqadmin
-
 
 ## TODO:
 Seem to get the below error when trying to run the start script for fuse
