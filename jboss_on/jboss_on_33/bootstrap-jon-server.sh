@@ -54,6 +54,17 @@ sudo sed -i "s/rhq.server.database.connection-url=jdbc:postgresql:\/\/127.0.0.1:
 sudo sed -i "s/rhq.communications.connector.transport=servlet/rhq.communications.connector.transport=sslservlet/" /opt/rh/jon-server-3.3.0.GA/bin/rhq-server.properties
 
 cd /opt/rh/jon-server-3.3.0.GA/bin &&
-    ./rhqctl install &&
+    ./rhqctl install
+
+# Configure the agent on the server
+cd /opt/rh &&
+    mv agent-configuration-template.xml rhq-agent/conf/agent-configuration.xml &&
+    sed -i "s/#setup-flag/true/" rhq-agent/conf/agent-configuration.xml &&
+    sed -i "s/#rhq.agent.name/jonserveragent/" rhq-agent/conf/agent-configuration.xml &&
+    sed -i "s/#bind-address/10.20.3.12/" rhq-agent/conf/agent-configuration.xml &&
+    sed -i "s/#server.bind-address/jonserver.jbosson33.vagrant.local/" rhq-agent/conf/agent-configuration.xml &&
+    sed -i "s/#connector.transport/sslsocket/" rhq-agent/conf/agent-configuration.xml
+
+cd /opt/rh/jon-server-3.3.0.GA/bin &&
     ./rhqctl start &&
     ./rhqctl status

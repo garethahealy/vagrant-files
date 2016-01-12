@@ -68,6 +68,7 @@ Vagrant.configure(2) do |config|
     jonserver.vm.network "private_network", ip: "10.20.3.12"
 
     # Add the JBoss ON zips
+    jonserver.vm.provision "file", source: "env/agent/agent-configuration-template.xml", destination: "/opt/rh/agent-configuration-template.xml"
     jonserver.vm.provision "file", source: "~/.m2/repository/org/jboss/on/jon-server/3.3.0.GA/jon-server-3.3.0.GA.zip", destination: "/opt/rh/jon-server-3.3.0.GA.zip"
     jonserver.vm.provision "file", source: "~/.m2/repository/org/jboss/on/jon-server-patch/3.3-update-04/jon-server-patch-3.3-update-04.zip", destination: "/opt/rh/jon-server-patch-3.3-update-04.zip"
     jonserver.vm.provision "file", source: "~/.m2/repository/org/jboss/on/patch-common-collections/BZ-1281514/patch-common-collections-BZ-1281514.zip", destination: "/opt/rh/patch-common-collections-BZ-1281514.zip"

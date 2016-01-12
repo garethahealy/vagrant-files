@@ -24,4 +24,5 @@ cd /opt/rh &&
     sed -i "s/#server.bind-address/jonserver.jbosson33.vagrant.local/" rhq-agent/conf/agent-configuration.xml &&
     sed -i "s/#connector.transport/sslsocket/" rhq-agent/conf/agent-configuration.xml &&
     cd rhq-agent/bin &&
-    ./rhq-agent-wrapper.sh start
+    ./rhq-agent-wrapper.sh start &&
+    ./rhq-agent-wrapper.sh status
