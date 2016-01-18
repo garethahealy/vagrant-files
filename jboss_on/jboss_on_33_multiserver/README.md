@@ -33,4 +33,3 @@ The SSH command responded with a non-zero exit status. Vagrant
 assumes that this means the command failed. The output for this command
 should be in the log above. Please read the output to determine what
 went wrong.
-

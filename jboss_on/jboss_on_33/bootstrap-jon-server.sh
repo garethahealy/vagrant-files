@@ -30,11 +30,17 @@ cd /opt/rh/jon-server-3.3.0.GA &&
 cd /opt/rh &&
     unzip -od /opt/rh/jon-server-3.3.0.GA patch-common-collections-BZ-1281514.zip
 
-# Add Fuse plugins
+# Add Plugins
 cd /opt/rh &&
-    unzip -d /tmp/jonplugins jon-plugin-pack-fuse-3.3.0.GA.zip &&
-    unzip -d /tmp/jonplugins jon-plugin-pack-fuse-patch-3.3.0.GA-update-03.zip
+    unzip -od /tmp/jonplugins jon-plugin-pack-fuse-3.3.0.GA.zip &&
+    unzip -od /tmp/jonplugins jon-plugin-pack-eap-3.3.0.GA.zip &&
+    unzip -od /tmp/jonplugins jon-plugin-pack-brms-3.3.0.GA.zip &&
+    unzip -od /tmp/jonplugins jon-plugin-pack-fuse-patch-3.3.0.GA-update-03.zip &&
+    unzip -od /tmp/jonplugins jon-plugin-pack-eap-patch-3.3.0.GA-update-01.zip &&
+    unzip -od /tmp/jonplugins jon-plugin-pack-brms-patch-3.3.0.GA-update-01.zip &&
     mv /tmp/jonplugins/jon-plugin-pack-fuse-3.3.0.GA/* /opt/rh/jon-server-3.3.0.GA/plugins &&
+    mv /tmp/jonplugins/jon-plugin-pack-eap-3.3.0.GA/* /opt/rh/jon-server-3.3.0.GA/plugins &&
+    mv /tmp/jonplugins/jon-plugin-pack-brms-bpms-3.3.0.GA/* /opt/rh/jon-server-3.3.0.GA/plugins &&
     mv /tmp/jonplugins/plugins/* /opt/rh/jon-server-3.3.0.GA/plugins
 
 # Overwritting patched files
@@ -58,7 +64,7 @@ cd /opt/rh/jon-server-3.3.0.GA/bin &&
 
 # Configure the agent on the server
 cd /opt/rh &&
-    mv agent-configuration-template.xml rhq-agent/conf/agent-configuration.xml &&
+    cp agent-configuration-template.xml rhq-agent/conf/agent-configuration.xml &&
     sed -i "s/#setup-flag/true/" rhq-agent/conf/agent-configuration.xml &&
     sed -i "s/#rhq.agent.name/jonserveragent/" rhq-agent/conf/agent-configuration.xml &&
     sed -i "s/#bind-address/10.20.3.12/" rhq-agent/conf/agent-configuration.xml &&

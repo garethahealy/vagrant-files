@@ -2,8 +2,9 @@
 
 set -x
 
+sed -i "s/rhq.autoinstall.public-endpoint-address=/rhq.autoinstall.public-endpoint-address=10.20.3.23/" /opt/rh/jon-server-3.3.0.GA/bin/rhq-server.properties
 sed -i "s/rhq.server.high-availability.name=/rhq.server.high-availability.name=10.20.3.23/" /opt/rh/jon-server-3.3.0.GA/bin/rhq-server.properties
-sed -i "s/rhq.storage.nodes=/rhq.storage.nodes=10.20.3.22/" /opt/rh/jon-server-3.3.0.GA/bin/rhq-server.properties
+sed -i "s/rhq.storage.nodes=/rhq.storage.nodes=10.20.3.23,10.20.3.22/" /opt/rh/jon-server-3.3.0.GA/bin/rhq-server.properties
 sed -i "s/#rhq.storage.hostname=/rhq.storage.hostname=10.20.3.23/" /opt/rh/jon-server-3.3.0.GA/bin/rhq-storage.properties
 
 cd /opt/rh/jon-server-3.3.0.GA/bin &&
@@ -11,7 +12,7 @@ cd /opt/rh/jon-server-3.3.0.GA/bin &&
 
 # Configure the agent on the server
 cd /opt/rh &&
-    mv agent-configuration-template.xml rhq-agent/conf/agent-configuration.xml &&
+    cp agent-configuration-template.xml rhq-agent/conf/agent-configuration.xml &&
     sed -i "s/#setup-flag/true/" rhq-agent/conf/agent-configuration.xml &&
     sed -i "s/#rhq.agent.name/jonservermulti2-agent/" rhq-agent/conf/agent-configuration.xml &&
     sed -i "s/#bind-address/10.20.3.23/" rhq-agent/conf/agent-configuration.xml &&

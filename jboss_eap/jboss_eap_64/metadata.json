@@ -1,0 +1,10 @@
+{
+  "name": "garethahealy/jboss_eap_64",
+  "description": "Image to run JBoss EAP 6.4.",
+  "versions": [{
+    "version": "1.0.0",
+    "providers": [{
+      "name": "virtualbox"
+    }]
+  }]
+}

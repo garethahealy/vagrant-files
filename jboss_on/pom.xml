@@ -4,8 +4,8 @@
 
     <modelVersion>4.0.0</modelVersion>
     <parent>
-        <groupId>com.garethahealy.vagrant</groupId>
-        <artifactId>vagrant-files</artifactId>
+        <groupId>com.garethahealy.vagrant-files</groupId>
+        <artifactId>vagrant-files-parent</artifactId>
         <version>1.0.0-SNAPSHOT</version>
         <relativePath>../</relativePath>
     </parent>
@@ -21,6 +21,7 @@
         <profile>
             <id>dependencies</id>
             <dependencies>
+                <!-- JON Serer-->
                 <dependency>
                     <groupId>org.jboss.on</groupId>
                     <artifactId>jon-server</artifactId>
@@ -40,6 +41,7 @@
                     <type>zip</type>
                 </dependency>
 
+                <!-- Fuse Plugins -->
                 <dependency>
                     <groupId>org.jboss.on</groupId>
                     <artifactId>jon-plugin-pack-fuse</artifactId>
@@ -53,8 +55,37 @@
                     <type>zip</type>
                 </dependency>
 
+                <!-- BRMS Plugins -->
                 <dependency>
-                    <groupId>com.garethahealy.fuse-setup</groupId>
+                    <groupId>org.jboss.on</groupId>
+                    <artifactId>jon-plugin-pack-brms</artifactId>
+                    <version>3.3.0.GA</version>
+                    <type>zip</type>
+                </dependency>
+                <dependency>
+                    <groupId>org.jboss.on</groupId>
+                    <artifactId>jon-plugin-pack-brms-patch</artifactId>
+                    <version>3.3.0.GA-update-01</version>
+                    <type>zip</type>
+                </dependency>
+
+                <!-- EAP Plugins -->
+                <dependency>
+                    <groupId>org.jboss.on</groupId>
+                    <artifactId>jon-plugin-pack-eap</artifactId>
+                    <version>3.3.0.GA</version>
+                    <type>zip</type>
+                </dependency>
+                <dependency>
+                    <groupId>org.jboss.on</groupId>
+                    <artifactId>jon-plugin-pack-eap-patch</artifactId>
+                    <version>3.3.0.GA-update-01</version>
+                    <type>zip</type>
+                </dependency>
+
+                <!-- Fuse scaffolding scripts -->
+                <dependency>
+                    <groupId>com.garethahealy.jboss-fuse-setup</groupId>
                     <artifactId>scaffolding-scripts</artifactId>
                     <version>1.0.2-SNAPSHOT</version>
                     <classifier>all</classifier>

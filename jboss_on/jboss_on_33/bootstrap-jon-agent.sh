@@ -17,7 +17,7 @@ cd /opt/rh/jboss-fuse-6.2.1.redhat-084/bin
 cd /opt/rh &&
     wget -O jon-agent-4.12.0.JON330GA.jar http://jonserver.jbosson33.vagrant.local:7080/agentupdate/download &&
     java -jar jon-agent-4.12.0.JON330GA.jar --install &&
-    mv agent-configuration-template.xml rhq-agent/conf/agent-configuration.xml &&
+    cp agent-configuration-template.xml rhq-agent/conf/agent-configuration.xml &&
     sed -i "s/#setup-flag/true/" rhq-agent/conf/agent-configuration.xml &&
     sed -i "s/#rhq.agent.name/jonagent/" rhq-agent/conf/agent-configuration.xml &&
     sed -i "s/#bind-address/10.20.3.13/" rhq-agent/conf/agent-configuration.xml &&
@@ -26,3 +26,5 @@ cd /opt/rh &&
     cd rhq-agent/bin &&
     ./rhq-agent-wrapper.sh start &&
     ./rhq-agent-wrapper.sh status
+
+exit 0;

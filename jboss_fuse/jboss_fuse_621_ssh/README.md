@@ -20,7 +20,7 @@ Image to run JBoss Fuse 6.2.1 on 3 VMs.
 The vagrant file expects to find any pre-req files in your m2 directory
 
 ## Log into hawt.io
-http://machine1.jbossfuse621.vagrant.local:8181
-U: admin
-P: admin
+- http://machine1.jbossfuse621.vagrant.local:8181
+- U: admin
+- P: admin
 

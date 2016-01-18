@@ -4,13 +4,13 @@
 
     <modelVersion>4.0.0</modelVersion>
     <parent>
-        <groupId>com.garethahealy</groupId>
+        <groupId>com.garethahealy.poms</groupId>
         <artifactId>plugins-parent</artifactId>
-        <version>1.1.0</version>
+        <version>1.0.0-SNAPSHOT</version>
         <relativePath/>
     </parent>
-    <groupId>com.garethahealy.vagrant</groupId>
-    <artifactId>vagrant-files</artifactId>
+    <groupId>com.garethahealy.vagrant-files</groupId>
+    <artifactId>vagrant-files-parent</artifactId>
     <packaging>pom</packaging>
     <version>1.0.0-SNAPSHOT</version>
     <name>GarethHealy :: Vagrant Files</name>
@@ -22,7 +22,10 @@
     </scm>
 
     <modules>
+        <module>jboss_on</module>
         <module>jboss_fuse</module>
+        <module>jboss_eap</module>
+        <module>jboss_brms</module>
         <module>apache_artemis110</module>
     </modules>
 

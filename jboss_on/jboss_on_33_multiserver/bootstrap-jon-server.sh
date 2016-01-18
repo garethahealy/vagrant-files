@@ -2,11 +2,8 @@
 
 set -x
 
-# https://www.sslshopper.com/article-how-to-create-a-self-signed-certificate-using-java-keytool.html
-# Generate keystore (Server) and truststore (Agent)
-keytool -genkey -keystore server-keystore.jks -alias jonserver  -storepass password -validity 360 -keysize 2048 -dname "CN=jonserver.jbosson33.vagrant.local, OU=Development, O=Gareth Healy, L=Sheffield, S=South Yorkshire, C=UK"
-keytool -export -rfc -keystore server-keystore.jks -storepass password -alias jonserver -file jonserver.cer
-keytool -import -trustcacerts -keystore client-truststore.jks -storepass password -file jonserver.cer -alias jonserver -noprompt
+# Install psql client
+sudo yum -y install postgresql
 
 # Create JON user
 sudo adduser jon
@@ -30,11 +27,17 @@ cd /opt/rh/jon-server-3.3.0.GA &&
 cd /opt/rh &&
     unzip -od /opt/rh/jon-server-3.3.0.GA patch-common-collections-BZ-1281514.zip
 
-# Add Fuse plugins
+# Add Plugins
 cd /opt/rh &&
-    unzip -d /tmp/jonplugins jon-plugin-pack-fuse-3.3.0.GA.zip &&
-    unzip -d /tmp/jonplugins jon-plugin-pack-fuse-patch-3.3.0.GA-update-03.zip
+    unzip -od /tmp/jonplugins jon-plugin-pack-fuse-3.3.0.GA.zip &&
+    unzip -od /tmp/jonplugins jon-plugin-pack-eap-3.3.0.GA.zip &&
+    unzip -od /tmp/jonplugins jon-plugin-pack-brms-3.3.0.GA.zip &&
+    unzip -od /tmp/jonplugins jon-plugin-pack-fuse-patch-3.3.0.GA-update-03.zip &&
+    unzip -od /tmp/jonplugins jon-plugin-pack-eap-patch-3.3.0.GA-update-01.zip &&
+    unzip -od /tmp/jonplugins jon-plugin-pack-brms-patch-3.3.0.GA-update-01.zip &&
     mv /tmp/jonplugins/jon-plugin-pack-fuse-3.3.0.GA/* /opt/rh/jon-server-3.3.0.GA/plugins &&
+    mv /tmp/jonplugins/jon-plugin-pack-eap-3.3.0.GA/* /opt/rh/jon-server-3.3.0.GA/plugins &&
+    mv /tmp/jonplugins/jon-plugin-pack-brms-bpms-3.3.0.GA/* /opt/rh/jon-server-3.3.0.GA/plugins &&
     mv /tmp/jonplugins/plugins/* /opt/rh/jon-server-3.3.0.GA/plugins
 
 # Overwritting patched files

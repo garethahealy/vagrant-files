@@ -19,18 +19,7 @@ if missing_plugins_installed
   exec "vagrant #{ARGV.join(" ")}"
 end
 
-AutoNetwork.default_pool = '10.20.1.11/24'
-
-require 'socket'
-def private_ipv4
-  Socket.ip_address_list.detect{|intf| intf.ipv4_private?}
-end
-
-hostmanager_ip = private_ipv4.ip_address unless private_ipv4.nil?
-
-$setHostmanagerIp = <<SCRIPT
-echo "#{hostmanager_ip}      hostmanager-vagrant.local" >> /etc/hosts
-SCRIPT
+AutoNetwork.default_pool = '10.20.5.11/24'
 
 # All Vagrant configuration is done below. The "2" in Vagrant.configure
 # configures the configuration version (we support older styles for
@@ -43,12 +32,11 @@ Vagrant.configure(2) do |config|
 
   # Every Vagrant development environment requires a box. You can search for
   # boxes at https://atlas.hashicorp.com/search.
-  config.vm.box = "garethahealy/centos72_java8"
-  config.vm.box_version = "= 1.0.1"
+  config.vm.box = "jboss_eap_64"
 
   # Hashicorp atlas push
   config.push.define "atlas" do |push|
-    push.app = "garethahealy/jboss_fuse_621_child"
+    push.app = "garethahealy/jboss_brms_62"
   end
 
   # Config /etc/hosts via plugin
@@ -57,24 +45,18 @@ Vagrant.configure(2) do |config|
   config.hostmanager.ignore_private_ip = false
   config.hostmanager.include_offline = true
 
-  # Fabric (i.e.: root controller node)
-  config.vm.define "child" do |child|
+  # JON Server
+  config.vm.define "brmsserver" do |brmsserver|
     # Assign network config
-    child.vm.hostname = "child.jbossfuse621.vagrant.local"
-    child.vm.network "private_network", ip: "10.20.1.21"
+    brmsserver.vm.hostname = "jonserver.jbosson33.vagrant.local"
+    brmsserver.vm.network "private_network", ip: "10.20.5.11"
 
-    # Add the JBoss Fuse zip and scripts
-    child.vm.provision "file", source: "~/.m2/repository/org/jboss/fuse/jboss-fuse-full/6.2.1.redhat-084/jboss-fuse-full-6.2.1.redhat-084.zip", destination: "/opt/rh/jboss-fuse-full-6.2.1.redhat-084.zip"
-    child.vm.provision "file", source: "~/.m2/repository/com/garethahealy/jboss-fuse-setup/scaffolding-scripts/1.0.2-SNAPSHOT/scaffolding-scripts-1.0.2-20160116.221328-1-all.zip", destination: "/tmp/scaffolding-scripts.zip"
+    # Add the JBoss BRMS zip
+    brmsserver.vm.provision "file", source: "~/.m2/repository/org/jboss/eap/brms-deployable-eap6/6.2.0.GA/brms-deployable-eap6-6.2.0.GA-eap6.zip", destination: "/opt/rh/brms-deployable-eap6-6.2.0.GA-eap6.zip"
 
     # Enable provisioning with a shell script. Additional provisioners such as
     # Puppet, Chef, Ansible, Salt, and Docker are also available. Please see the
     # documentation for more information about their specific syntax and use.
-    child.vm.provision :shell, inline: $setHostmanagerIp, privileged: false
-    child.vm.provision :shell, path: "bootstrap.sh", privileged: false
-    child.vm.provision :shell, path: "bootstrap-fabric.sh", privileged: false
-
-    # Complete message
-    child.vm.post_up_message = "http://child.jbossfuse621.vagrant.local:8181/"
+    brmsserver.vm.provision :shell, path: "bootstrap.sh", privileged: false
   end
 end

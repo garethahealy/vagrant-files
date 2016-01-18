@@ -72,8 +72,14 @@ Vagrant.configure(2) do |config|
     jonservermulti1.vm.provision "file", source: "~/.m2/repository/org/jboss/on/jon-server/3.3.0.GA/jon-server-3.3.0.GA.zip", destination: "/opt/rh/jon-server-3.3.0.GA.zip"
     jonservermulti1.vm.provision "file", source: "~/.m2/repository/org/jboss/on/jon-server-patch/3.3-update-04/jon-server-patch-3.3-update-04.zip", destination: "/opt/rh/jon-server-patch-3.3-update-04.zip"
     jonservermulti1.vm.provision "file", source: "~/.m2/repository/org/jboss/on/patch-common-collections/BZ-1281514/patch-common-collections-BZ-1281514.zip", destination: "/opt/rh/patch-common-collections-BZ-1281514.zip"
+
+    # Plugin zips
     jonservermulti1.vm.provision "file", source: "~/.m2/repository/org/jboss/on/jon-plugin-pack-fuse/3.3.0.GA/jon-plugin-pack-fuse-3.3.0.GA.zip", destination: "/opt/rh/jon-plugin-pack-fuse-3.3.0.GA.zip"
     jonservermulti1.vm.provision "file", source: "~/.m2/repository/org/jboss/on/jon-plugin-pack-fuse-patch/3.3.0.GA-update-03/jon-plugin-pack-fuse-patch-3.3.0.GA-update-03.zip", destination: "/opt/rh/jon-plugin-pack-fuse-patch-3.3.0.GA-update-03.zip"
+    jonservermulti1.vm.provision "file", source: "~/.m2/repository/org/jboss/on/jon-plugin-pack-brms/3.3.0.GA/jon-plugin-pack-brms-3.3.0.GA.zip", destination: "/opt/rh/jon-plugin-pack-brms-3.3.0.GA.zip"
+    jonservermulti1.vm.provision "file", source: "~/.m2/repository/org/jboss/on/jon-plugin-pack-brms-patch/3.3.0.GA-update-01/jon-plugin-pack-brms-patch-3.3.0.GA-update-01.zip", destination: "/opt/rh/jon-plugin-pack-brms-patch-3.3.0.GA-update-01.zip"
+    jonservermulti1.vm.provision "file", source: "~/.m2/repository/org/jboss/on/jon-plugin-pack-eap/3.3.0.GA/jon-plugin-pack-eap-3.3.0.GA.zip", destination: "/opt/rh/jon-plugin-pack-eap-3.3.0.GA.zip"
+    jonservermulti1.vm.provision "file", source: "~/.m2/repository/org/jboss/on/jon-plugin-pack-eap-patch/3.3.0.GA-update-01/jon-plugin-pack-eap-patch-3.3.0.GA-update-01.zip", destination: "/opt/rh/jon-plugin-pack-eap-patch-3.3.0.GA-update-01.zip"
 
     # Enable provisioning with a shell script. Additional provisioners such as
     # Puppet, Chef, Ansible, Salt, and Docker are also available. Please see the
@@ -97,8 +103,14 @@ Vagrant.configure(2) do |config|
     jonservermulti2.vm.provision "file", source: "~/.m2/repository/org/jboss/on/jon-server/3.3.0.GA/jon-server-3.3.0.GA.zip", destination: "/opt/rh/jon-server-3.3.0.GA.zip"
     jonservermulti2.vm.provision "file", source: "~/.m2/repository/org/jboss/on/jon-server-patch/3.3-update-04/jon-server-patch-3.3-update-04.zip", destination: "/opt/rh/jon-server-patch-3.3-update-04.zip"
     jonservermulti2.vm.provision "file", source: "~/.m2/repository/org/jboss/on/patch-common-collections/BZ-1281514/patch-common-collections-BZ-1281514.zip", destination: "/opt/rh/patch-common-collections-BZ-1281514.zip"
+
+    # Plugin zips
     jonservermulti2.vm.provision "file", source: "~/.m2/repository/org/jboss/on/jon-plugin-pack-fuse/3.3.0.GA/jon-plugin-pack-fuse-3.3.0.GA.zip", destination: "/opt/rh/jon-plugin-pack-fuse-3.3.0.GA.zip"
     jonservermulti2.vm.provision "file", source: "~/.m2/repository/org/jboss/on/jon-plugin-pack-fuse-patch/3.3.0.GA-update-03/jon-plugin-pack-fuse-patch-3.3.0.GA-update-03.zip", destination: "/opt/rh/jon-plugin-pack-fuse-patch-3.3.0.GA-update-03.zip"
+    jonservermulti2.vm.provision "file", source: "~/.m2/repository/org/jboss/on/jon-plugin-pack-brms/3.3.0.GA/jon-plugin-pack-brms-3.3.0.GA.zip", destination: "/opt/rh/jon-plugin-pack-brms-3.3.0.GA.zip"
+    jonservermulti2.vm.provision "file", source: "~/.m2/repository/org/jboss/on/jon-plugin-pack-brms-patch/3.3.0.GA-update-01/jon-plugin-pack-brms-patch-3.3.0.GA-update-01.zip", destination: "/opt/rh/jon-plugin-pack-brms-patch-3.3.0.GA-update-01.zip"
+    jonservermulti2.vm.provision "file", source: "~/.m2/repository/org/jboss/on/jon-plugin-pack-eap/3.3.0.GA/jon-plugin-pack-eap-3.3.0.GA.zip", destination: "/opt/rh/jon-plugin-pack-eap-3.3.0.GA.zip"
+    jonservermulti2.vm.provision "file", source: "~/.m2/repository/org/jboss/on/jon-plugin-pack-eap-patch/3.3.0.GA-update-01/jon-plugin-pack-eap-patch-3.3.0.GA-update-01.zip", destination: "/opt/rh/jon-plugin-pack-eap-patch-3.3.0.GA-update-01.zip"
 
     # Enable provisioning with a shell script. Additional provisioners such as
     # Puppet, Chef, Ansible, Salt, and Docker are also available. Please see the
@@ -120,7 +132,7 @@ Vagrant.configure(2) do |config|
     # Add the JBoss Fuse zip and scripts
     jonagentmulti1.vm.provision "file", source: "env/agent/agent-configuration-template.xml", destination: "/opt/rh/agent-configuration-template.xml"
     jonagentmulti1.vm.provision "file", source: "~/.m2/repository/org/jboss/fuse/jboss-fuse-full/6.2.1.redhat-084/jboss-fuse-full-6.2.1.redhat-084.zip", destination: "/opt/rh/jboss-fuse-full-6.2.1.redhat-084.zip"
-    jonagentmulti1.vm.provision "file", source: "~/.m2/repository/com/garethahealy/fuse-setup/scaffolding-scripts/1.0.2-SNAPSHOT/scaffolding-scripts-1.0.2-20160111.204806-5-all.zip", destination: "/tmp/scaffolding-scripts.zip"
+    jonagentmulti1.vm.provision "file", source: "~/.m2/repository/com/garethahealy/jboss-fuse-setup/scaffolding-scripts/1.0.2-SNAPSHOT/scaffolding-scripts-1.0.2-20160116.221328-1-all.zip", destination: "/tmp/scaffolding-scripts.zip"
 
     # Enable provisioning with a shell script. Additional provisioners such as
     # Puppet, Chef, Ansible, Salt, and Docker are also available. Please see the
@@ -142,7 +154,7 @@ Vagrant.configure(2) do |config|
     # Add the JBoss Fuse zip and scripts
     jonagentmulti2.vm.provision "file", source: "env/agent/agent-configuration-template.xml", destination: "/opt/rh/agent-configuration-template.xml"
     jonagentmulti2.vm.provision "file", source: "~/.m2/repository/org/jboss/fuse/jboss-fuse-full/6.2.1.redhat-084/jboss-fuse-full-6.2.1.redhat-084.zip", destination: "/opt/rh/jboss-fuse-full-6.2.1.redhat-084.zip"
-    jonagentmulti2.vm.provision "file", source: "~/.m2/repository/com/garethahealy/fuse-setup/scaffolding-scripts/1.0.2-SNAPSHOT/scaffolding-scripts-1.0.2-20160111.204806-5-all.zip", destination: "/tmp/scaffolding-scripts.zip"
+    jonagentmulti2.vm.provision "file", source: "~/.m2/repository/com/garethahealy/jboss-fuse-setup/scaffolding-scripts/1.0.2-SNAPSHOT/scaffolding-scripts-1.0.2-20160116.221328-1-all.zip", destination: "/tmp/scaffolding-scripts.zip"
 
     # Enable provisioning with a shell script. Additional provisioners such as
     # Puppet, Chef, Ansible, Salt, and Docker are also available. Please see the
