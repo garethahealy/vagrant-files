@@ -1,0 +1,10 @@
+{
+  "name": "garethahealy/mariadb",
+  "description": "Image to run MariaDB.",
+  "versions": [{
+    "version": "1.0.0",
+    "providers": [{
+      "name": "virtualbox"
+    }]
+  }]
+}

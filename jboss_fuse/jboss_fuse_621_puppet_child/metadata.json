@@ -1,0 +1,10 @@
+{
+  "name": "garethahealy/jboss_fuse_621_puppet_child",
+  "description": "Image to run JBoss Fuse 6.2.1 on 3 VMs.",
+  "versions": [{
+    "version": "1.0.0",
+    "providers": [{
+      "name": "virtualbox"
+    }]
+  }]
+}

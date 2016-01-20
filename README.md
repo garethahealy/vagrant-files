@@ -10,6 +10,17 @@
 - vagrant box add boxcutter/centos72 --provider virtualbox
 - vagrant box add centos/atomic-host --provider virtualbox
 
+## IPs
+- Fuse SSH:             10.20.1.11 -> 10.20.1.13
+- Fuse Child:           10.20.1.21
+- Fuse Puppet Chuld:    10.20.1.31
+- Apache Artemis:       10.20.2.11
+- JON:                  10.20.3.11
+- JON MultiServer:      10.20.3.21 -> 10.20.3.25
+- EAP:                  10.20.4.11
+- BRMS:                 10.20.5.11
+- MariaDB:              10.20.6.11
+
 ## Pre-reqs
 ### Plugins
 - vagrant plugin install vagrant-hostmanager

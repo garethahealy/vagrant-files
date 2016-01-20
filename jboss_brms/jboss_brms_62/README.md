@@ -1,4 +1,6 @@
-# jboss_eap
+## WORK IN PROGRESS
+
+# jboss_brms
 Image to run JBoss BRMS 6.2.
 
 ## What does this image do?

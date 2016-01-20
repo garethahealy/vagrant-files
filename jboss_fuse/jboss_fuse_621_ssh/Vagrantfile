@@ -80,7 +80,7 @@ Vagrant.configure(2) do |config|
 
     # Add the JBoss Fuse zip and scripts
     machine1.vm.provision "file", source: "~/.m2/repository/org/jboss/fuse/jboss-fuse-full/6.2.1.redhat-084/jboss-fuse-full-6.2.1.redhat-084.zip", destination: "/opt/rh/jboss-fuse-full-6.2.1.redhat-084.zip"
-    machine1.vm.provision "file", source: "~/.m2/repository/com/garethahealy/jboss-fuse-setup/scaffolding-scripts/1.0.2-SNAPSHOT/scaffolding-scripts-1.0.2-20160116.221328-1-all.zip", destination: "/tmp/scaffolding-scripts.zip"
+    machine1.vm.provision "file", source: "~/.m2/repository/com/garethahealy/jboss-fuse-setup/scaffolding-scripts/1.0.3/scaffolding-scripts-1.0.3-all.zip", destination: "/tmp/scaffolding-scripts.zip"
 
     # Enable provisioning with a shell script. Additional provisioners such as
     # Puppet, Chef, Ansible, Salt, and Docker are also available. Please see the

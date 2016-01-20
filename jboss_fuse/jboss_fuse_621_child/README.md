@@ -1,4 +1,4 @@
-# jboss_fuse_621
+# jboss_fuse_621_child
 Image to run JBoss Fuse 6.2.1 on a single VM.
 
 ## What does this image do?

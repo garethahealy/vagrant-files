@@ -1,4 +1,4 @@
-# jboss_fuse_621
+# jboss_fuse_621_ssh
 Image to run JBoss Fuse 6.2.1 on 3 VMs.
 
 ## What does this image do?
