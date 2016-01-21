@@ -8,7 +8,7 @@ sudo firewall-cmd --reload
 # Install postgres
 sudo yum install -y postgresql-server &&
     sudo postgresql-setup initdb &&
-    sudo systemctl enable postgresql.service
+    sudo systemctl enable postgresql.service &&
     sudo systemctl start postgresql.service
 
 # Change password for postgres user
