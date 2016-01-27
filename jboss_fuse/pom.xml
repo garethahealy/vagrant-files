@@ -17,6 +17,17 @@
         <license.skipDownloadLicenses>true</license.skipDownloadLicenses>
     </properties>
 
+    <dependencies>
+        <!-- Fuse scaffolding scripts -->
+        <dependency>
+            <groupId>com.garethahealy.jboss-fuse-setup</groupId>
+            <artifactId>scaffolding-scripts</artifactId>
+            <version>1.0.4</version>
+            <classifier>all</classifier>
+            <type>zip</type>
+        </dependency>
+    </dependencies>
+
     <profiles>
         <profile>
             <id>dependencies</id>
@@ -29,15 +40,6 @@
                     <groupId>org.jboss.fuse</groupId>
                     <artifactId>jboss-fuse-full</artifactId>
                     <version>6.2.1.redhat-084</version>
-                    <type>zip</type>
-                </dependency>
-
-                <!-- Fuse scaffolding scripts -->
-                <dependency>
-                    <groupId>com.garethahealy.jboss-fuse-setup</groupId>
-                    <artifactId>scaffolding-scripts</artifactId>
-                    <version>1.0.4</version>
-                    <classifier>all</classifier>
                     <type>zip</type>
                 </dependency>
             </dependencies>
