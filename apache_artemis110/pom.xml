@@ -20,7 +20,11 @@
     <profiles>
         <profile>
             <id>dependencies</id>
+            <activation>
+                <activeByDefault>true</activeByDefault>
+            </activation>
             <dependencies>
+                <!-- Artemis server -->
                 <dependency>
                     <groupId>org.apache.activemq</groupId>
                     <artifactId>artemis</artifactId>

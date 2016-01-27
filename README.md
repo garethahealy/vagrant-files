@@ -1,3 +1,5 @@
+[![Build Status](https://travis-ci.org/garethahealy/vagrant-files.svg?branch=master)](https://travis-ci.org/garethahealy/vagrant-files)
+
 # vagrant-files
 - https://www.virtualbox.org/wiki/Downloads
 - https://docs.vagrantup.com/v2/getting-started/

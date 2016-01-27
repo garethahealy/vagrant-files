@@ -20,6 +20,9 @@
     <profiles>
         <profile>
             <id>dependencies</id>
+            <activation>
+                <activeByDefault>true</activeByDefault>
+            </activation>
             <dependencies>
                 <!-- EAP Serer-->
                 <dependency>

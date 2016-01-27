@@ -20,6 +20,9 @@
     <profiles>
         <profile>
             <id>dependencies</id>
+            <activation>
+                <activeByDefault>true</activeByDefault>
+            </activation>
             <dependencies>
                 <!-- JON Serer-->
                 <dependency>
@@ -87,7 +90,7 @@
                 <dependency>
                     <groupId>com.garethahealy.jboss-fuse-setup</groupId>
                     <artifactId>scaffolding-scripts</artifactId>
-                    <version>1.0.3</version>
+                    <version>1.0.4</version>
                     <classifier>all</classifier>
                     <type>zip</type>
                 </dependency>

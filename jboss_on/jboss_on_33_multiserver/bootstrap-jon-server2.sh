@@ -24,7 +24,7 @@ cd /opt/rh/jon-server-3.3.0.GA/bin &&
     ./rhqctl status
 
 # Check logs to see if server has started
-echo "Waiting for server to start."
+echo "Waiting for server/agent/storage to start."
 
 time_elapsed=0
 has_started=0
@@ -41,4 +41,38 @@ done
 
 if [[ $has_started == 1 ]]; then
     echo "Server has started."
+fi
+
+time_agent_elapsed=0
+has_agent_started=0
+while (( $has_agent_started <= 0 ))
+do
+    sleep 5
+    time_agent_elapsed=$((time_agent_elapsed + 5))
+    has_agent_started=$(grep -c "Got agent registration request for new agent" /opt/rh/jon-server-3.3.0.GA/logs/server.log)
+    if [[ $time_agent_elapsed -ge 120 ]]; then
+        echo "Waited $time_agent_elapsed for server agent start. Exiting loop."
+        break
+    fi
+done
+
+if [[ $has_agent_started == 1 ]]; then
+    echo "Server agent has started."
+fi
+
+time_storage_elapsed=0
+has_storage_started=0
+while (( $has_storage_started <= 0 ))
+do
+    sleep 5
+    time_storage_elapsed=$((time_storage_elapsed + 5))
+    has_storage_started=$(grep -c "Updating snapshot management schedules for StorageNode" /opt/rh/jon-server-3.3.0.GA/logs/server.log)
+    if [[ $time_storage_elapsed -ge 120 ]]; then
+        echo "Waited $time_storage_elapsed for server agent start. Exiting loop."
+        break
+    fi
+done
+
+if [[ $has_storage_started == 1 ]]; then
+    echo "Server storage has started."
 fi
