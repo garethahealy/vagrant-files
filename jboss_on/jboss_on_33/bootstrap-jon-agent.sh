@@ -27,4 +27,21 @@ cd /opt/rh &&
     ./rhq-agent-wrapper.sh start &&
     ./rhq-agent-wrapper.sh status
 
+time_agent_elapsed=0
+has_agent_started=0
+while (( $has_agent_started <= 0 ))
+do
+    sleep 5
+    time_agent_elapsed=$((time_agent_elapsed + 5))
+    has_agent_started=$(grep -c "Executing server discovery scan" /opt/rh/rhq-agent/logs/agent.log)
+    if [[ $time_agent_elapsed -ge 120 ]]; then
+        echo "Waited $time_agent_elapsed for agent scan. Exiting loop."
+        break
+    fi
+done
+
+if [[ $has_agent_started == 1 ]]; then
+    echo "Agent has completed scan."
+fi
+
 exit 0;
