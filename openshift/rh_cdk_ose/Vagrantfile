@@ -1,0 +1,60 @@
+# -*- mode: ruby -*-
+# vi: set ft=ruby :
+
+Vagrant.require_version ">= 1.8.0"
+
+# Install required Vagrant plugins
+missing_plugins_installed = false
+required_plugins = %w(vagrant-vbguest vagrant-hostmanager vagrant-cachier vagrant-registration vagrant-adbinfo)
+
+required_plugins.each do |plugin|
+  if !Vagrant.has_plugin? plugin
+    system "vagrant plugin install #{plugin}"
+    missing_plugins_installed = true
+  end
+end
+
+# If any plugins were missing and have been installed, re-run vagrant
+if missing_plugins_installed
+  exec "vagrant #{ARGV.join(" ")}"
+end
+
+# All Vagrant configuration is done below. The "2" in Vagrant.configure
+# configures the configuration version (we support older styles for
+# backwards compatibility). Please don't change it unless you know what
+# you're doing.
+Vagrant.configure(2) do |config|
+  # The most common configuration options are documented and commented below.
+  # For a complete reference, please see the online documentation at
+  # https://docs.vagrantup.com.
+
+  # Every Vagrant development environment requires a box. You can search for
+  # boxes at https://atlas.hashicorp.com/search.
+  config.vm.box = "cdkv2"
+
+  # Configure cached packages to be shared between instances of the same base box.
+  # More info on http://fgrehm.viewdocs.io/vagrant-cachier/usage
+  config.cache.scope = :box
+
+  # Config /etc/hosts via plugin
+  config.hostmanager.enabled = true
+  config.hostmanager.manage_host = true
+  config.hostmanager.ignore_private_ip = false
+  config.hostmanager.include_offline = true
+
+  # OSE Master VM
+  config.vm.define :ose_single do |ose_single|
+    # Assign network config
+    ose_single.vm.hostname = "single.ose.vagrant.local"
+    ose_single.vm.network "private_network", ip: "10.1.2.2"
+
+    # Share .m2
+    ose_single.vm.synced_folder "~/.m2/", "/home/vagrant/.m2/", type: "nfs"
+
+    # Config the box
+    ose_single.vm.provision :shell, path: "bootstrap.sh"
+
+    # Complete message
+    ose_single.vm.post_up_message = "https://single.ose.vagrant.local:8443/console/"
+  end
+end
