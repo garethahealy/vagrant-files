@@ -23,6 +23,7 @@
 - EAP:                  10.20.4.11
 - BRMS:                 10.20.5.11
 - MariaDB:              10.20.6.11
+- Jenkins:              10.20.7.11
 - OpenShift:            10.1.2.2
 
 ## Pre-reqs
