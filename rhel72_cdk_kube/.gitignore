@@ -1,30 +1,3 @@
-# IntelliJ IDEA #
-.idea/
-*.iml
-
-# Eclipse Files #
-.metadata
-.settings
-.project
-.classpath
-RemoteSystemsTempFiles
-
-# General Java Folders #
-bin/
-target/
-logs/
-
-# Java Package Files #
-*.jar
-*.class
-
-# General #
-tmp/
-*.tmp
-
-# Vagrant
-.vagrant
-*.box
-*.vmdk
-*.ova
+cdk-2.1.0.zip
+rhel-cdk-kubernetes-7.2-25.x86_64.vagrant-virtualbox.box
 

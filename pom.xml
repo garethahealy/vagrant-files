@@ -27,6 +27,7 @@
         <module>jboss_eap</module>
         <module>jboss_brms</module>
         <module>apache_artemis</module>
+        <module>jenkins</module>
     </modules>
 
 </project>

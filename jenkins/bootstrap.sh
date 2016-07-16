@@ -28,12 +28,13 @@ sudo systemctl enable jenkins
 sudo systemctl start jenkins
 sudo systemctl status jenkins
 
-
 # Install any plugins
-curl -X POST -d '<jenkins><install plugin="docker-commons@1.2" /></jenkins>' --header 'Content-Type: text/xml' http://localhost:8080/pluginManager/installNecessaryPlugins
+curl -X POST http://localhost:8080/pluginManager/installNecessaryPlugins -d '<install plugin="docker-commons@current" />'
+curl -X POST http://localhost:8080/pluginManager/installNecessaryPlugins -d '<install plugin="git@current" />'
+curl -X POST http://localhost:8080/safeRestart
 
-# Wait just so everything is installed
+# Wait so everything is installed
 sleep 30
 
-# Jenkins safe restart
-curl -X POST http://localhost:8080/safeRestart
+# Restart Jenkins
+sudo systemctl restart jenkins

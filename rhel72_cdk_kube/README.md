@@ -1,2 +1,2 @@
-# rhel72_java8
-http://developers.redhat.com/products/cdk/download/
+# rhel72_cdk_kube
+- http://developers.redhat.com/products/cdk/download/
