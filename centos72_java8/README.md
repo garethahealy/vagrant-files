@@ -7,9 +7,7 @@ Base image for any Java related projects. Provides JDK and all pre-reqs.
 - vagrant package --output centos72_java8.box
 - vagrant box add centos72_java8 centos72_java8.box
 
+## Push to Atlas
+- https://www.vagrantup.com/docs/push/atlas.html
+- https://github.com/mitchellh/vagrant/issues/4968
 
-
-http://stackoverflow.com/questions/28328775/virtualbox-mount-vboxsf-mounting-failed-with-the-error-no-such-device
-sudo yum -y install gcc kernel-devel make
-cd /opt/VBoxGuestAdditions-*/init
-sudo ./vboxadd setup
