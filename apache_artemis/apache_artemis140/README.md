@@ -1,5 +1,5 @@
 # apache_artemis120
-Image to run Apache Artemis 1.2.0.
+Image to run Apache Artemis 1.4.0.
 
 ## What does this image do?
 - Creates 1 VM
@@ -14,6 +14,6 @@ Image to run Apache Artemis 1.2.0.
 The vagrant file expects to find any pre-req files in your m2 directory
 
 ## Links for future
-- http://activemq.apache.org/artemis/docs/1.2.0/client-classpath.html
-- http://activemq.apache.org/artemis/docs/1.2.0/examples.html
+- http://activemq.apache.org/artemis/docs/1.4.0/client-classpath.html
+- http://activemq.apache.org/artemis/docs/1.4.0/examples.html
 

@@ -27,15 +27,8 @@
                 <!-- Artemis server -->
                 <dependency>
                     <groupId>org.apache.activemq</groupId>
-                    <artifactId>artemis</artifactId>
-                    <version>1.1.0</version>
-                    <classifier>bin</classifier>
-                    <type>zip</type>
-                </dependency>
-                <dependency>
-                    <groupId>org.apache.activemq</groupId>
-                    <artifactId>artemis</artifactId>
-                    <version>1.2.0</version>
+                    <artifactId>activemq-artemis</artifactId>
+                    <version>1.4.0</version>
                     <classifier>bin</classifier>
                     <type>zip</type>
                 </dependency>
