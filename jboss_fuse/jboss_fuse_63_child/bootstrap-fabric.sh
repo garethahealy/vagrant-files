@@ -8,4 +8,4 @@ cd /tmp &&
     cd scripts &&
     chmod -R 755 *.sh &&
     find . -type f -exec dos2unix {} {} \; &&
-    ./install-fuse-and-deploy.sh -e vagrant-child -u vagrant
+    ./install-fuse-and-deploy.sh -e vagrant-child -u vagrant -i false
