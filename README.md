@@ -7,10 +7,9 @@
 - https://blog.engineyard.com/2014/building-a-vagrant-box
 
 ## Boxes
-- https://github.com/boxcutter
 - https://atlas.hashicorp.com/boxes/search
 
-- vagrant box add boxcutter/centos72 --provider virtualbox
+- vagrant box add centos/7 --provider virtualbox
 - vagrant box add centos/atomic-host --provider virtualbox
 - vagrant box add garethahealy/centos72_java8 --provider virtualbox
 
