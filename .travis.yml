@@ -4,6 +4,8 @@ jdk:
   - oraclejdk8
 install:
   - java -version && javac -version && mvn -version
+before_script:
+    - mvn dependency:resolve-plugins dependency:resolve -P\!dependencies
 script:
   - mvn clean install -P\!dependencies -Dgpg.skip=true
 cache:
