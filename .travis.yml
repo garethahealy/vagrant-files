@@ -2,8 +2,11 @@ dist: trusty
 language: java
 jdk:
   - oraclejdk8
+install:
+  - java -version && javac -version && mvn -version
 script:
   - mvn clean install -P\!dependencies -Dgpg.skip=true
 cache:
   directories:
   - $HOME/.m2
+  - $HOME/.victims
