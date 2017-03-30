@@ -17,5 +17,5 @@ sshpass -p vagrant ssh-copy-id vagrant@machine3.jbossfuse621.vagrant.local
 cd /tmp &&
     unzip -o scaffolding-scripts.zip &&
     cd scripts &&
-    chmod -R 755 *.sh &&
+    chmod -R 755 ./*.sh &&
     ./install-fuse-and-deploy.sh -e vagrant-ssh -u vagrant

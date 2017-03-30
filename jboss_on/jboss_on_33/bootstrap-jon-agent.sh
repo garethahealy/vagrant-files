@@ -6,11 +6,11 @@ set -x
 cd /tmp &&
     unzip -o scaffolding-scripts.zip &&
     cd scripts &&
-    chmod -R 755 *.sh &&
+    chmod -R 755 ./*.sh &&
     ./install-fuse.sh -e vagrant-child
 
 # Start Fuse
-cd /opt/rh/jboss-fuse-6.2.1.redhat-084/bin
+cd /opt/rh/jboss-fuse-6.2.1.redhat-084/bin &&
     ./start
 
 # Install the agent
@@ -29,7 +29,7 @@ cd /opt/rh &&
 
 time_agent_elapsed=0
 has_agent_started=0
-while (( $has_agent_started <= 0 ))
+while (( has_agent_started <= 0 ))
 do
     sleep 5
     time_agent_elapsed=$((time_agent_elapsed + 5))

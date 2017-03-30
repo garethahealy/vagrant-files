@@ -80,7 +80,7 @@ echo "Waiting for server/agent/storage to start."
 
 time_elapsed=0
 has_started=0
-while (( $has_started <= 0 ))
+while (( has_started <= 0 ))
 do
     sleep 5
     time_elapsed=$((time_elapsed + 5))
@@ -97,7 +97,7 @@ fi
 
 time_agent_elapsed=0
 has_agent_started=0
-while (( $has_agent_started <= 0 ))
+while (( has_agent_started <= 0 ))
 do
     sleep 5
     time_agent_elapsed=$((time_agent_elapsed + 5))
@@ -114,7 +114,7 @@ fi
 
 time_storage_elapsed=0
 has_storage_started=0
-while (( $has_storage_started <= 0 ))
+while (( has_storage_started <= 0 ))
 do
     sleep 5
     time_storage_elapsed=$((time_storage_elapsed + 5))

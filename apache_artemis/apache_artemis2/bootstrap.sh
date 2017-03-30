@@ -8,7 +8,7 @@ ulimit -n 4096
 
 # Unzip Apache Artemis
 cd /opt/rh &&
-    unzip activemq-artemis-1.4.0-bin.zip
+    unzip activemq-artemis-2.0.0-bin.zip
 
 # Open firewall for web/openwire
 sudo firewall-cmd --zone=public --add-port=8161/tcp --permanent     #web

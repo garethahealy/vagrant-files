@@ -7,7 +7,7 @@ exit 0
 cd /tmp &&
     unzip -o scaffolding-scripts.zip &&
     cd scripts &&
-    chmod -R 755 *.sh &&
+    chmod -R 755 ./*.sh &&
     ./install-fuse.sh -e vagrant-child
 
 cd /opt/rh/scripts/commands &&

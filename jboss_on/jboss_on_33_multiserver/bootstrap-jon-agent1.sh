@@ -17,7 +17,7 @@ cd /opt/rh &&
 
 time_agent_elapsed=0
 has_agent_started=0
-while (( $has_agent_started <= 0 ))
+while (( has_agent_started <= 0 ))
 do
     sleep 5
     time_agent_elapsed=$((time_agent_elapsed + 5))
