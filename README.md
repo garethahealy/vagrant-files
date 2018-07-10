@@ -10,7 +10,6 @@
 - https://atlas.hashicorp.com/boxes/search
 
 - vagrant box add centos/7 --provider virtualbox
-- vagrant box add centos/atomic-host --provider virtualbox
 - vagrant box add garethahealy/centos72_java8 --provider virtualbox
 
 ## IPs
@@ -20,11 +19,6 @@
 - Apache Artemis:       10.20.2.11 -> 10.20.2.21
 - JON:                  10.20.3.11
 - JON MultiServer:      10.20.3.21 -> 10.20.3.25
-- EAP:                  10.20.4.11
-- BRMS:                 10.20.5.11
-- MariaDB:              10.20.6.11
-- Jenkins:              10.20.7.11
-- OpenShift:            10.1.2.2
 
 ## Pre-reqs
 ### Plugins
