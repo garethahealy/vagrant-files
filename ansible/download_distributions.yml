@@ -1,0 +1,16 @@
+- name: "Download RedHat middleware distributions"
+  hosts: localhost
+  connection: local
+
+  vars:
+    #AMQ 7.2.0
+    amq7_artifact_url: https://access.redhat.com/jbossnetwork/restricted/softwareDownload.html?softwareId=58991
+    amq7_artifact_dl_dest: /Users/garethah/Documents/github/garethahealy/vagrant-files/ansible
+    #Fuse 7.0.1
+    fuse7_artifact_url: https://access.redhat.com/jbossnetwork/restricted/softwareDownload.html?softwareId=59871
+    fuse7_artifact_dl_dest: /Users/garethah/Documents/github/garethahealy/vagrant-files/ansible
+    rhn_username: gahealy@redhat.com
+    rhn_password: test
+
+  roles:
+  - download_distributions

@@ -1,0 +1,12 @@
+---
+- name: Add maven repository
+  yum_repository:
+    name: epel-apache-maven
+    description: maven from apache foundation
+    baseurl: http://repos.fedorapeople.org/repos/dchen/apache-maven/epel-$releasever/$basearch/
+
+- name: Add maven repository source
+  yum_repository:
+    name: epel-apache-maven-source
+    description: maven from apache foundation - sources
+    baseurl: http://repos.fedorapeople.org/repos/dchen/apache-maven/epel-$releasever/SRPMS

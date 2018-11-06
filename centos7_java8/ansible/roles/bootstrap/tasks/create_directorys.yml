@@ -1,0 +1,11 @@
+---
+- name: Create pre-req directorys
+  file:
+    path: "{{ item }}"
+    owner: vagrant
+    group: vagrant
+    state: directory
+    mode: 0755
+  with_items:
+    - /opt/rh
+    - /home/vagrant/.m2

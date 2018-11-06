@@ -1,0 +1,7 @@
+---
+- name: Open Java debug port; 5005/tcp
+  firewalld:
+    zone: public
+    port: 5005/tcp
+    permanent: true
+    state: enabled

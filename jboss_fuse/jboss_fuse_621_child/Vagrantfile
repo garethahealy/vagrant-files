@@ -43,7 +43,7 @@ Vagrant.configure(2) do |config|
 
   # Every Vagrant development environment requires a box. You can search for
   # boxes at https://atlas.hashicorp.com/search.
-  config.vm.box = "garethahealy/centos72_java8"
+  config.vm.box = "garethahealy/centos7_java8"
   config.vm.box_version = "= 1.0.5"
 
   # Hashicorp atlas push

@@ -1,0 +1,13 @@
+---
+- name: Install yum4 repo
+  yum:
+    name: centos-release-yum4
+    state: latest
+
+- name: Install yum4 and plugins
+  yum:
+    name: "{{ item }}"
+    state: latest
+  with_items:
+  - yum4
+  - dnf-plugins-core

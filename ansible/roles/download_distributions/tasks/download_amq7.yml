@@ -1,0 +1,12 @@
+---
+- name: Async download RedHat AMQ7 from RedHat Customer Portal
+  redhat_csp_download:
+    url: "{{ amq7_artifact_url }}"
+    dest: "{{ amq7_artifact_dl_dest }}"
+    username: "{{ rhn_username }}"
+    password: "{{ rhn_password }}"
+  async: 7200
+  poll: 0
+  register: csp_amq7_download
+  tags:
+    - amq7

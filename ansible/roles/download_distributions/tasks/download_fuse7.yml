@@ -1,0 +1,11 @@
+---
+- redhat_csp_download:
+    url: "{{ fuse7_artifact_url }}"
+    dest: "{{ fuse7_artifact_dl_dest }}"
+    username: "{{ rhn_username }}"
+    password: "{{ rhn_password }}"
+  async: 7200
+  poll: 0
+  register: csp_fuse7_download
+  tags:
+    - amq7

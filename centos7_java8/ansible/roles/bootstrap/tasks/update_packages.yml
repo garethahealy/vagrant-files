@@ -1,0 +1,26 @@
+---
+- name: Update all
+  dnf:
+    name: "*"
+    state: latest
+
+- name: Install extra packages
+  dnf:
+    name:
+     - java-1.8.0-openjdk
+     - java-1.8.0-openjdk-devel
+     - apache-maven
+     - curl
+     - wget
+     - vim
+     - zip
+     - unzip
+     - tar
+     - telnet
+     - bc
+     - git
+     - lokkit
+     - sshpass
+     - nmap
+     - libaio
+    state: latest

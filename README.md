@@ -3,14 +3,14 @@
 
 # vagrant-files
 - https://www.virtualbox.org/wiki/Downloads
-- https://docs.vagrantup.com/v2/getting-started/
-- https://blog.engineyard.com/2014/building-a-vagrant-box
+- https://www.vagrantup.com/intro/getting-started/
+- https://www.engineyard.com/blog/building-a-vagrant-box
 
 ## Boxes
-- https://atlas.hashicorp.com/boxes/search
+- https://app.vagrantup.com/boxes/search
 
 - vagrant box add centos/7 --provider virtualbox
-- vagrant box add garethahealy/centos72_java8 --provider virtualbox
+- vagrant box add garethahealy/centos7_java8 --provider virtualbox
 
 ## IPs
 - Fuse SSH:             10.20.1.11 -> 10.20.1.13
@@ -29,4 +29,4 @@
 - vagrant plugin install vagrant-auto_network
 
 ## Base for new project
-- vagrant init garethahealy/centos72_java8; vagrant up --provider virtualbox
+- vagrant init garethahealy/centos7_java8; vagrant up --provider virtualbox

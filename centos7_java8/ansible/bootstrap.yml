@@ -1,0 +1,22 @@
+- name: "Bootstrap VM"
+  hosts: all
+  become_user: root
+  connection: local
+  tasks:
+  - name: Add Apache Maven RPM repo
+    import_tasks: roles/bootstrap/tasks/add_maven_yum_repo.yml
+
+  - name: Install yum4/dnf
+    import_tasks: roles/bootstrap/tasks/install_yum4.yml
+
+  - name: Update all packages and install any extra
+    import_tasks: roles/bootstrap/tasks/update_packages.yml
+
+  - name: Create any directors used by child vagrants
+    import_tasks: roles/bootstrap/tasks/create_directorys.yml
+
+  - name: Update soft and hard limits
+    import_tasks: roles/bootstrap/tasks/update_pam_limits.yml
+
+  - name: Update firewalld with default rules
+    import_tasks: roles/bootstrap/tasks/update_firewalld.yml
